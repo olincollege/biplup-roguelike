@@ -1,0 +1,7 @@
+[wrap-git]
+url = https://github.com/devkitPro/mmutil
+revision = v1.10.1
+patch_directory = mmutil
+
+[provide]
+program_names = mmutil

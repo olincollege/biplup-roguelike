@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "name": "GBA",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "intelliSenseMode": "gcc-arm",
+            "cStandard": "c11",
+            "cppStandard": "c++20"
+        }
+    ],
+    "version": 4
+}

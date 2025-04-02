@@ -1,0 +1,7 @@
+[wrap-git]
+url = https://github.com/devkitPro/libfat
+revision = 69543f058c10c90cddf3b3243819fa1953e3ea9e
+patch_directory = libfat
+
+[provide]
+dependency_names = libfat

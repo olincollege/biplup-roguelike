@@ -1,0 +1,7 @@
+[wrap-git]
+url = https://github.com/gbadev-org/libgba
+revision = 0d46fc9f8644126bf869cf33637b32b20cd99c28
+patch_directory = libgba
+
+[provide]
+dependency_names = libgba

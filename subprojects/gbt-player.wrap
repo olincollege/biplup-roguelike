@@ -1,0 +1,8 @@
+[wrap-git]
+url = https://github.com/AntonioND/gbt-player
+revision = v4.4.1
+patch_directory = gbt-player
+
+[provide]
+dependency_names = gbt-player
+program_names = mod2gbt, s3m2gbt, s3msplit
