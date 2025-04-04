@@ -1,4 +1,4 @@
-# biplup-rougelike
+# biplup-roguelike
 
 A psuedo-turn based roguelike.
 
