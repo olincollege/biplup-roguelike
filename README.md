@@ -65,11 +65,12 @@ pipx ensurepath
 ```
 ### Ubuntu
 ```sh
-sudo apt-get install meson
+pip3 install --user meson
 ```
 
 ### Adding to PATH
-MacOS and Ubuntu should automatically add meson to PATH.
+
+MacOS should automatically add meson to PATH.
 
 Windows you have to search for, which if it is a user install, should be in
 ```powershell
@@ -77,6 +78,11 @@ C:\Users\<your username>\Roaming\Python\Python312\Scripts
 ```
 
 Add this to your <ins>User</ins> environment variables.
+
+For Ubuntu, you have to add it to PATH manually. Run this command:
+```sh
+export PATH=$PATH:~/.local/bin
+```
 
 ## Installing Ninja
 
