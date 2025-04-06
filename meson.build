@@ -1,6 +1,6 @@
 # Change these to suit your project, if you want.
 project(
-  'untitled_biplup_game', 'c',
+  'biplup-roguelike', 'c',
   version: '0.10.0',
   license: 'Zlib',
   meson_version: '>=0.60.0',
@@ -16,7 +16,7 @@ if get_option('dev')
 endif
 
 # The name of your project.
-name = 'untitled_biplup_game'
+name = 'biplup-roguelike'
 
 # All of the source files used by your project.
 sources = [
@@ -32,6 +32,7 @@ includes = [
 # Check them out and add the ones you want to use to this list.
 dependencies = [
   dependency('minrt'),
+  dependency('libtonc')
 ]
 
 # The main executable for your game. We give it a '.elf' file extension,
