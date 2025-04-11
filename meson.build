@@ -28,6 +28,10 @@ includes = [
   'include',
 ]
 
+# Assets
+subdir('assets/blob')
+sources = blob_src + sources
+
 # Dependencies. gba-meson provides a large number of GBA development libraries.
 # Check them out and add the ones you want to use to this list.
 dependencies = [
