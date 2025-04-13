@@ -1,12 +1,18 @@
-blob_image = files('blob.bmp')
+# Sprite file name
+object_name = 'blob'
+
+blob_image = files(object_name + '.bmp')
 
 grit = find_program('grit')
 
-blob_data = custom_target('blob_sprite',
+blob_data = custom_target(object_name + '_sprite',
     input: blob_image,
-    output: ['blob.s', 'blob.h'],
+    output: [object_name + '.s', object_name + '.h'],
     command: [
-        grit, '@INPUT@', '-gB4', '-gt', '-p', '-Mw 2', '-Mh 2', '-o', '@OUTDIR@/blob.s', '-W', '@OUTDIR@/blob.h'
+        grit, '@INPUT@',
+        '-gB4', '-gt', '-p', '-Mw 2', '-Mh 2', # Sprite options
+        '-o', '@OUTDIR@/' + object_name + '.s',
+        '-W', '@OUTDIR@/' + object_name + '.h'
     ],
     capture: false
 )
