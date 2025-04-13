@@ -16,7 +16,16 @@
         <option name="profiles">
           <MesonProfile>
             <option name="buildDir" value="build" />
-            <option name="mesonExecutable" value="C:\Users\ramze\AppData\Roaming\Python\Python312\Scripts\meson.exe" />
+            <option name="mesonExecutable" value="C:\Users\rburdette\AppData\Roaming\Python\Python312\Scripts\meson.exe" />
+            <option name="setupOptions">
+              <list>
+                <option value="--cross-file=dkarm.ini" />
+                <option value="--wipe" />
+                <option value="--reconfigure" />
+                <option value="--wrap-mode=forcefallback" />
+              </list>
+            </option>
+            <option name="toolchainName" value="MinGW" />
           </MesonProfile>
         </option>
       </MesonProjectSettings>

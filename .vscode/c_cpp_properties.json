@@ -3,8 +3,10 @@
         {
             "name": "GBA",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/subprojects/***"
             ],
+            "compilerPath": "C:\\msys64\\ucrt64\\bin\\gcc",
             "intelliSenseMode": "gcc-arm",
             "cStandard": "c11",
             "cppStandard": "c++20"
