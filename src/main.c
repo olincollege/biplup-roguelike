@@ -52,7 +52,7 @@ int main(void)
     set_obj_x(&blob, blob.x);
     set_obj_y(&blob, blob.y);
 
-    blob.attr->attr2 = ATTR2_ID(10) | ATTR2_PRIO(0) | ATTR2_PALBANK(0);
+    blob.attr->attr2 = ATTR2_ID(0) | ATTR2_PRIO(0) | ATTR2_PALBANK(0);
 
     // OBJ_ATTR *blob_attrs = &((OBJ_ATTR*) MEM_OAM)[0];
     // int x = 0, y = 0;
@@ -60,7 +60,7 @@ int main(void)
     // blob_attrs->attr1 = ATTR1_X(x) | ATTR1_SIZE_16x16;
     // blob_attrs->attr2 = ATTR2_ID(0) | ATTR2_PRIO(0) | ATTR2_PALBANK(0);
 
-    REG_DISPCNT = DCNT_MODE3 | DCNT_OBJ | DCNT_OBJ_1D | DCNT_BG2;
+    REG_DISPCNT = DCNT_MODE0 | DCNT_OBJ | DCNT_OBJ_1D;
 
     while (1) {
         vid_vsync();
@@ -70,6 +70,7 @@ int main(void)
         }
         set_obj_x(&blob, blob.x);
         key_input(&blob);
+        // key_input(&blob);
  
         // x = (x + 3) % SCREEN_WIDTH;
         // y = (y + 3) % SCREEN_HEIGHT;
