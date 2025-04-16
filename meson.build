@@ -21,6 +21,8 @@ name = 'biplup-roguelike'
 # All of the source files used by your project.
 sources = [
   'src/main.c',
+  'src/score.c',
+  
 ]
 
 # All of the include directories used by your project.

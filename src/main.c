@@ -1,13 +1,16 @@
-#include "example.h"
+#include "score.h"
 #include "tonc.h"
 
-int main(void)
-{
-    REG_DISPCNT = VIDEO_MODE_3 | VIDEO_BG2_ENABLE;
+int main() {
+  irq_init(NULL);
+  irq_add(II_VBLANK, NULL);
+  REG_DISPCNT = DCNT_MODE0 | DCNT_BG0;
+  score_init();
+  while (1) {
 
-    MODE3_SCREEN[80][120] = COLOR_RED;
-    MODE3_SCREEN[80][136] = COLOR_GREEN;
-    MODE3_SCREEN[96][120] = COLOR_BLUE;
+    vid_vsync();
+    score_update();
+  }
 
-    while (true) {}
+  return 0;
 }
