@@ -1,91 +1,108 @@
-#include "example.h"
 #include "tonc.h"
+
+#include "types.h"
+#include "move.h"
+
 #include "assets/blob/blob.h"
 
-typedef struct object_t {
-    OBJ_ATTR* attr;
-    int x;
-    int y;
-} Object;
+// static int object_counter = 0;
 
-void set_obj_x(Object* obj, int x);
+// void set_obj_x(Object *obj, int x);
+// void set_obj_y(Object *obj, int y);
+void update_obj_x(Object *obj);
+void update_obj_y(Object *obj);
 
-void set_obj_x(Object* obj, int x) {
-    obj->attr->attr1 = ATTR1_X(x) | ATTR1_SIZE_16x16;
-    obj->x = x;
+void update_obj_x(Object *obj)
+{
+    int x_val = obj->attr->attr1 & 0x01FF;
+    obj->x = x_val;
 }
 
-void set_obj_y(Object *obj, int y);
-
-void set_obj_y(Object *obj, int y) {
-    obj->attr->attr0 = ATTR0_Y(y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
-    obj->y = y;
+void update_obj_y(Object *obj)
+{
+    int y_val = obj->attr->attr0 & 0x00FF;
+    obj->y = y_val;
 }
 
-void key_input(Object *obj) {
-    key_poll();
-
-    if (key_is_down(KEY_DOWN)) {
-        obj->y = obj->y + 5;
-        set_obj_y(obj, obj->y);
-    }
-
-    if (key_is_down(KEY_UP)) {
-        obj->y  = obj->y - 5;
-        set_obj_y(obj, obj->x);
-    }
-}
+// void despawn(Object *obj)
+// {
+// }
 
 int main(void)
 {
-    // general idea - generate object way off the screen and as it moves over the screen,
-    // check for collisions. when it goes way off the screen, despawn it.
+
+    oam_init(oam_mem, MAX_SPRITES);
+
     memcpy16(pal_obj_mem, blobPal, blobPalLen / 2);
-    memcpy32((u32*)MEM_VRAM_OBJ, blobTiles, blobTilesLen / 4);
+    memcpy32((u32 *)MEM_VRAM_OBJ, blobTiles, blobTilesLen / 4);
 
-    Object blob = (Object) {
-        .attr = &((OBJ_ATTR*) MEM_OAM)[0],
-        .x = 239,
-        .y = 0
-    };
+    // memcpy16(pal_obj_mem, blobPal, blobPalLen / 2);
+    // memcpy32((u32 *)MEM_VRAM_OBJ, blobTiles, blobTilesLen / 4);
 
-    set_obj_x(&blob, blob.x);
-    set_obj_y(&blob, blob.y);
+    Object blob_1 = (Object){
+        .attr = &oam_mem[0],
+        .x = 200,
+        .y = 40,
+        .is_active = true};
 
-    blob.attr->attr2 = ATTR2_ID(0) | ATTR2_PRIO(0) | ATTR2_PALBANK(0);
+    blob_1.attr->attr0 = ATTR0_Y(blob_1.y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
+    blob_1.attr->attr1 = ATTR1_X(blob_1.x) | ATTR1_SIZE_16x16;
+    blob_1.attr->attr2 = ATTR2_ID(0) | ATTR2_PRIO(0) | ATTR2_PALBANK(0);
 
-    // OBJ_ATTR *blob_attrs = &((OBJ_ATTR*) MEM_OAM)[0];
-    // int x = 0, y = 0;
-    // blob_attrs->attr0 = ATTR0_Y(y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
-    // blob_attrs->attr1 = ATTR1_X(x) | ATTR1_SIZE_16x16;
-    // blob_attrs->attr2 = ATTR2_ID(0) | ATTR2_PRIO(0) | ATTR2_PALBANK(0);
+    Object blob_2 = (Object){
+        .attr = &oam_mem[1],
+        .x = 40,
+        .y = 40,
+        .is_active = true};
+
+    // set_obj_x(&blob_2, blob_2.x);
+    // set_obj_y(&blob_2, blob_2.y);
+
+    blob_2.attr->attr0 = ATTR0_Y(blob_2.y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_MODE(ATTR0_REG);
+    blob_2.attr->attr1 = ATTR1_X(blob_2.x) | ATTR1_SIZE_16x16;
+    blob_2.attr->attr2 = ATTR2_ID(0) | ATTR2_PRIO(1) | ATTR2_PALBANK(0);
 
     REG_DISPCNT = DCNT_MODE0 | DCNT_OBJ | DCNT_OBJ_1D;
 
-    while (1) {
+    direction offscreen;
+    int direction_ = 1;
+
+    update_obj_x(&blob_1);
+    update_obj_y(&blob_1);
+
+    update_obj_x(&blob_2);
+    update_obj_y(&blob_2);
+    while (1)
+    {
         vid_vsync();
-        blob.x = (blob.x - 3);
-        if (blob.x <= 1) {
-            blob.x = 239;
+        if (blob_1.is_active)
+        {
+            blob_1.x = (blob_1.x + direction_);
+            obj_set_pos(blob_1.attr, blob_1.x, blob_1.y);
+            update_obj_x(&blob_1);
+            update_obj_y(&blob_1);
         }
-        set_obj_x(&blob, blob.x);
-        key_input(&blob);
-        // key_input(&blob);
- 
-        // x = (x + 3) % SCREEN_WIDTH;
-        // y = (y + 3) % SCREEN_HEIGHT;
-        // blob_attrs->attr0 = ATTR0_Y(y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
-        // blob_attrs->attr1 = ATTR1_X(x) | ATTR1_SIZE_16x16;
-        // blob_attrs->attr2 = ATTR2_ID(0) | ATTR2_PRIO(0) | ATTR2_PALBANK(0);
+
+        obj_set_pos(blob_2.attr, blob_2.x, blob_2.y);
+
+        update_obj_x(&blob_2);
+        update_obj_y(&blob_2);
+        // int y = 40;
+        // blob_1.attr->attr0 = ATTR0_Y(y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
+        // blob_1.y = y;
+
+        if (check_obj_overlap(&blob_1, &blob_2))
+        {
+            direction_ = -direction_;
+        }
+
+        check_obj_offscreen(&blob_1, &offscreen);
+        if (offscreen.left == 1 || offscreen.right == 1)
+        {
+            // obj_hide(blob_1.attr);
+            // blob_1.is_active = false;
+            direction_ = -direction_;
+        }
     }
     return 0;
 }
-
-// void init_main() {
-    
-// }
-
-// void update_main() {
-
-    
-// }

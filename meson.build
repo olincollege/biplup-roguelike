@@ -1,6 +1,6 @@
 # Change these to suit your project, if you want.
 project(
-  'biplup-roguelike', 'c',
+  'dino-game', 'c',
   version: '0.10.0',
   license: 'Zlib',
   meson_version: '>=0.60.0',
@@ -16,11 +16,13 @@ if get_option('dev')
 endif
 
 # The name of your project.
-name = 'biplup-roguelike'
+name = 'dino-game'
 
 # All of the source files used by your project.
 sources = [
   'src/main.c',
+  'src/move.c',
+  'src/util.c',
 ]
 
 # All of the include directories used by your project.
