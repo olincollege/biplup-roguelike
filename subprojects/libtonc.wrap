@@ -1,6 +1,6 @@
 [wrap-git]
 url = https://github.com/gbadev-org/libtonc
-revision = ccc03fa321e56f51aed5e2ee1d6e3df3d1cbc803
+revision = 6e3fb2b9a09d03487ef183a2bf4369cbaf26d785
 patch_directory = libtonc
 
 [provide]

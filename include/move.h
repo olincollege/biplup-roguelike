@@ -1,18 +1,7 @@
 #pragma once
 
 #include "tonc.h"
-
-static const int width_table[3][4] = {
-    {8, 16, 32, 64},  // Square
-    {16, 32, 32, 64}, // Wide
-    {8, 8, 16, 32}    // Tall
-};
-
-static const int height_table[3][4] = {
-    {8, 16, 32, 64}, // Square
-    {8, 8, 16, 32},  // Wide
-    {16, 32, 32, 64} // Tall
-};
+#include "types.h"
 
 /**
  * Determine if there is overlap between two objects on the screen.
@@ -27,7 +16,7 @@ static const int height_table[3][4] = {
  * @param obj2 A pointer to the second object.
  * @return An int to indicate if the objects are colliding.
  */
-int check_obj_overlap(const OBJ_ATTR *obj1, const OBJ_ATTR *obj2);
+int check_obj_overlap(const Object *obj1, const Object *obj2);
 
 /**
  * Determine if any part of an object is offscreen.
@@ -37,7 +26,7 @@ int check_obj_overlap(const OBJ_ATTR *obj1, const OBJ_ATTR *obj2);
  * describing which parts of the screen it is off from.
  *
  * @param obj1 A pointer to the  object.
- * @return An pointer to a dir struct with values of 1 wherever the object
- *         is offscreen.
+ * @param dir An pointer to a dir struct with values of 1 wherever the object
+ *            is offscreen.
  */
-dir *check_obj_offscreen(const OBJ_ATTR *obj1);
+void check_obj_offscreen(const Object *obj, direction *dir);
