@@ -45,6 +45,7 @@ void update_physics(Object *obj) {
   int y_temp = obj->y + (obj->y_velocity + 0.5 * obj->y_acceleration);
   if (y_temp >= 100) {
     y_temp = 100;
+    set_jumping(obj, false);
   }
   obj_set_pos(obj->attr, obj->x, y_temp);
   update_obj_x(obj);
