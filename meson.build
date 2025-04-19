@@ -47,6 +47,13 @@ score_sources = [
   'src/score_example.c'
 ]
 
+player_movement_with_score_sources = [
+  'src/blob.s',
+  'src/player_movement.c',
+  'src/score.c',
+  'src/player_movement_with_score_example.c'
+]
+
 # All of the include directories used by your project.
 includes = [
   'include',
@@ -93,6 +100,14 @@ score_elf = executable(
   name_suffix: 'elf'
 )
 
+player_score_elf = executable(
+  'player_score',
+  player_movement_with_score_sources,
+  include_directories: includes,
+  dependencies: dependencies,
+  name_suffix: 'elf'
+)
+
 # Get the 'makerom' program from sdk-seven.
 makerom = find_program('makerom')
 
@@ -125,6 +140,14 @@ score_rom = custom_target(
   'score-rom',
   input: score_elf,
   output: 'score.gba',
+  command: [makerom, '@INPUT@', '@OUTPUT@'],
+  build_by_default: true
+)
+
+player_score_rom = custom_target(
+  'player-score-rom',
+  input: player_score_elf,
+  output: 'player_score.gba',
   command: [makerom, '@INPUT@', '@OUTPUT@'],
   build_by_default: true
 )
