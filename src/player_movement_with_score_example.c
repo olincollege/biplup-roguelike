@@ -34,7 +34,7 @@ int main(void) {
   while (1) {
     vid_vsync();
     key_input(&blob);
-    update_physics(&blob);
+    update_physics(&blob, 100);
     score_update();
   }
   return 0;

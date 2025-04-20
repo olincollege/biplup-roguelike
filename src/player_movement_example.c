@@ -27,7 +27,7 @@ int main(void) {
   while (1) {
     vid_vsync();
     key_input(&blob);
-    update_physics(&blob);
+    update_physics(&blob, blob.y);
   }
   return 0;
 }

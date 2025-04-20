@@ -25,7 +25,8 @@ sources = [
   'src/score.c',
   'src/player_movement.c',
   'src/main.c',
-  'src/blob.s'
+  'src/blob.s',
+  'src/bg_with_road.s'
 ]
 
 player_movement_sources = [
