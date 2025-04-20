@@ -33,7 +33,7 @@ int main(void) {
                            .x_velocity = 0,
                            .y_velocity = 0,
                            .x_acceleration = 0,
-                           .y_acceleration = 0.9,
+                           .y_acceleration = 0.4,
                            .jumping = false};
 
   blob_1.attr->attr0 =
@@ -50,7 +50,7 @@ int main(void) {
   blob_2.attr->attr2 = ATTR2_ID(0) | ATTR2_PRIO(1) | ATTR2_PALBANK(0);
 
   Object blob_3 = (Object){
-      .attr = &oam_mem[2], .x = 250, .y = floor_level - 20, .is_active = false};
+      .attr = &oam_mem[2], .x = 250, .y = floor_level - 10, .is_active = false};
 
   blob_3.attr->attr0 = ATTR0_Y((int)blob_3.y) | ATTR0_SQUARE | ATTR0_4BPP |
                        ATTR0_MODE(ATTR0_REG);
