@@ -42,7 +42,7 @@ int main(void) {
       display_key_input(&game_state);
     } else if (game_state == 1) {
       key_input(&blob);
-      update_physics(&blob);
+      update_physics(&blob, 100);
       score_update();
     }
   }

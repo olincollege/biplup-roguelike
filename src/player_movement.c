@@ -42,7 +42,7 @@ void key_input(Object *obj) {
 
 void update_physics(Object *obj, int min_y_val) {
   set_obj_y_velocity(obj, obj->y_velocity + obj->y_acceleration);
-  float y_temp = obj->y + (obj->y_velocity + 0.5 * obj->y_acceleration);
+  float y_temp = obj->y + (obj->y_velocity + 10 * obj->y_acceleration);
   if (y_temp >= min_y_val) {
     y_temp = min_y_val;
     set_jumping(obj, false);
