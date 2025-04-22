@@ -1,8 +1,7 @@
-#include "move.h"
-
+#include "utils.h"
 #include "tonc.h"
 
-int check_obj_overlap(const Object *obj1, const Object *obj2) {
+bool check_obj_overlap(const Object *obj1, const Object *obj2) {
   // features of object 1
   int obj1_x = obj1->x;
   int obj1_y = obj1->y;
@@ -21,10 +20,10 @@ int check_obj_overlap(const Object *obj1, const Object *obj2) {
   int not_below = obj1_y < obj2_y + obj2_height;
   int not_above = obj1_y + obj1_height > obj2_y;
   if (not_right && not_left && not_below && not_above) {
-    return 1;
+    return true;
   }
 
-  return 0;
+  return false;
 }
 
 void check_obj_offscreen(const Object *obj, direction *dir) {
@@ -55,4 +54,24 @@ void check_obj_offscreen(const Object *obj, direction *dir) {
   if (obj_y + obj_height < 0) {
     dir->top = 1;
   }
+}
+
+void despawn(Object *obj) {
+  obj_hide(obj->attr);
+  obj->is_active = false;
+}
+
+void spawn(Object *obj) {
+  obj_unhide(obj->attr, 0);
+  obj->is_active = true;
+}
+
+void set_obj_beginning(Object *obj) {
+  obj->x = 250;
+  obj_set_pos(obj->attr, obj->x, obj->y);
+}
+
+void reset_game_state(int *game_state, int *score) {
+  *game_state = 1;
+  *score = 0;
 }

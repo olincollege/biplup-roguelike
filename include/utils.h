@@ -1,7 +1,36 @@
 #pragma once
 
 #include "tonc.h"
-#include "types.h"
+#include <stdbool.h>
+#include <stdint.h>
+
+typedef RECT direction;
+
+typedef struct object_t {
+  OBJ_ATTR *attr;
+  bool is_active;
+  float x;
+  float y;
+  float x_velocity;
+  float y_velocity;
+  float x_acceleration;
+  float y_acceleration;
+  bool jumping;
+} Object;
+
+static const int width_table[3][4] = {
+    {8, 16, 32, 64},  // Square
+    {16, 32, 32, 64}, // Wide
+    {8, 8, 16, 32}    // Tall
+};
+
+static const int height_table[3][4] = {
+    {8, 16, 32, 64}, // Square
+    {8, 8, 16, 32},  // Wide
+    {16, 32, 32, 64} // Tall
+};
+
+#define MAX_SPRITES 128
 
 /**
  * Determine if there is overlap between two objects on the screen.
@@ -14,9 +43,9 @@
  *
  * @param obj1 A pointer to the first object.
  * @param obj2 A pointer to the second object.
- * @return An int to indicate if the objects are colliding.
+ * @return An bool to indicate if the objects are colliding.
  */
-int check_obj_overlap(const Object *obj1, const Object *obj2);
+bool check_obj_overlap(const Object *obj1, const Object *obj2);
 
 /**
  * Determine if any part of an object is offscreen.
@@ -30,3 +59,9 @@ int check_obj_overlap(const Object *obj1, const Object *obj2);
  *            is offscreen.
  */
 void check_obj_offscreen(const Object *obj, direction *dir);
+
+void despawn(Object *obj);
+void spawn(Object *obj);
+void set_obj_beginning(Object *obj);
+
+void reset_game_state(int *game_state, int *score);

@@ -1,13 +1,12 @@
 #include "tonc.h"
 
-#include "move.h"
-#include "player_movement.h"
-#include "press_to_start.h"
-#include "score.h"
-#include "types.h"
+#include "input.h"
+#include "kinematics.h"
+#include "text.h"
+#include "utils.h"
 
-#include "bg_with_road.h"
-#include "blob.h"
+#include "assets/bg_with_road.h"
+#include "assets/blob.h"
 
 int main(void) {
 
@@ -26,6 +25,7 @@ int main(void) {
   irq_init(NULL);
   irq_add(II_VBLANK, NULL);
 
+  int score = 0;
   score_init();
 
   int game_state = 0;
@@ -91,12 +91,12 @@ int main(void) {
 
     switch (game_state) {
     case 0:
-      display_key_input(&game_state);
+      poll_key_input(NULL, &game_state, &score);
       break;
     case 1: {
 
       // key input and physics update
-      key_input(&blob_1);
+      poll_key_input(&blob_1, &game_state, NULL);
       update_physics(&blob_1, floor_level);
 
       if (blob_1.is_active) {
