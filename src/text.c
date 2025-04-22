@@ -1,28 +1,57 @@
 #include "text.h"
 #include "tonc.h"
+#include "tonc_tte.h"
+#include <stdio.h>
+
+// Use LibTonc's built-in 8x8 font
+extern const TFont sys8Font;
+
+// here are some important globals
+int score = 0;
+char display_buffer[64];
+char score_buffer[64];
 
 void restart_init(void) {
-  char buffer[64];
   tte_erase_screen();
-  snprintf(buffer, sizeof(buffer), "game over :( press up to restart");
+  snprintf(display_buffer, sizeof(display_buffer),
+           "game over :( press up to restart");
 
   // Draw the text
   tte_set_pos(50, 50);
-  tte_write(buffer);
+  tte_write(display_buffer);
 }
 
 void display_init(void) {
   char buffer[64];
   tte_erase_screen();
-  snprintf(buffer, sizeof(buffer), "press up to start");
+  snprintf(display_buffer, sizeof(display_buffer), "press up to start");
 
   // Draw the text
   tte_set_pos(50, 50);
-  tte_write(buffer);
+  tte_write(display_buffer);
 }
 
-void start_game(int *game_state, int *score) {
-  tte_erase_screen();
-  *game_state = 1;
-  *score = 0;
+void score_init(void) {
+  tte_init_se(0,                      // Background number (BG 0)
+              BG_CBB(0) | BG_SBB(31), // BG control (for REG_BGxCNT)
+              0,                      // Tile offset (special cattr)
+              CLR_BLACK,              // Ink color
+              14,                     // BitUnpack offset (on-pixel = 15)
+              NULL,                   // Default font (sys8)
+              NULL);
 }
+
+void score_update(void) {
+  tte_erase_screen();
+  snprintf(score_buffer, sizeof(score_buffer), "Score: %d", score);
+
+  // Clear previous text (optional but useful in bitmap mode)
+
+  // Draw the updated score
+  tte_set_pos(0, 15);
+  tte_write(score_buffer); // Write the score
+
+  score++;
+}
+
+void erase_screen(void) { tte_erase_screen(); }
