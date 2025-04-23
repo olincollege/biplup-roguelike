@@ -1,8 +1,8 @@
 #pragma once
 
-void display_init(void);
+void end_text(void);
 
-void restart_init(void);
+void start_text(void);
 
 void score_init(void);
 

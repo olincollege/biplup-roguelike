@@ -1,28 +1,26 @@
 #include "text.h"
 #include "tonc.h"
-#include "tonc_tte.h"
 #include <stdio.h>
 
 // Use LibTonc's built-in 8x8 font
 extern const TFont sys8Font;
 
 // here are some important globals
-int score = 0;
+extern int score;
 char display_buffer[64];
 char score_buffer[64];
 
-void restart_init(void) {
+void end_text(void) {
   tte_erase_screen();
   snprintf(display_buffer, sizeof(display_buffer),
-           "game over :( press up to restart");
+           "game over :( final score: %d. press up to restart", score);
 
   // Draw the text
   tte_set_pos(50, 50);
   tte_write(display_buffer);
 }
 
-void display_init(void) {
-  char buffer[64];
+void start_text(void) {
   tte_erase_screen();
   snprintf(display_buffer, sizeof(display_buffer), "press up to start");
 

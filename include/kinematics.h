@@ -1,7 +1,7 @@
 #pragma once
 
 #include "tonc.h"
-#include "utils.h"
+#include "types.h"
 #include <stdbool.h>
 
 void update_obj_x(Object *obj);

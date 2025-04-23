@@ -1,8 +1,8 @@
 #pragma once
 #include "tonc.h"
-#include "utils.h"
+#include "types.h"
 
 // inputs (keypresses)
-void poll_key_input(Object *obj, int *game_state, int *score);
+void poll_key_input(Object *obj, Object **obstacles);
 
 // outputs (sound)

@@ -1,6 +1,6 @@
 #include "kinematics.h"
 #include "tonc.h"
-#include "utils.h"
+#include "types.h"
 
 void update_obj_x(Object *obj) {
   int x_val = obj->attr->attr1 & 0x01FF;
