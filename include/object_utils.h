@@ -10,7 +10,7 @@
 #define DACTYL_HEIGHT_DIFF -10
 #define CLOUD_HEIGHT_DIFF -30
 
-#define CACTUS_AMOUNT 1
+#define CACTUS_AMOUNT 2
 #define DACTYL_AMOUNT 1
 #define CLOUD_AMOUNT 0
 #define OBSTACLE_AMOUNT CACTUS_AMOUNT + DACTYL_AMOUNT + CLOUD_AMOUNT
@@ -23,12 +23,15 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
                         bool is_active, int tile_number);
 
 void obstacle_constructor(Object *obj, int obj_counter, float x, float y,
-                          int tile_number);
+                          int frame_spawn_threshold, int tile_number);
 
 void player_constructor(Object *obj, int obj_counter, float x, float y,
                         int tile_number);
 
 void construct_obstacles(Object **obstacles);
+
+// void construct_cacti(Object **cacti_array);
+// void construct_dactyls(Object **dactyls_array);
 
 /**
  * Determine if there is overlap between two objects on the screen.

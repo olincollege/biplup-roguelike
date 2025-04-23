@@ -78,43 +78,6 @@ void set_obj_beginning(Object *obj) {
   obj_set_pos(obj->attr, obj->x, obj->y);
 }
 
-void construct_obstacles(Object **obstacles) {
-  // cacti
-  int i;
-  for (i = 0; i < CACTUS_AMOUNT; i++) {
-    obstacle_constructor(obstacles[i], i + 1, SCREEN_WIDTH + OFFSCREEN_OFFSET,
-                         FLOOR_LEVEL, BLOB);
-    obstacles[i]->frame_spawn_threshold = CACTUS_THRESHOLD * (i + 1);
-    update_obj_x(obstacles[i]);
-    update_obj_y(obstacles[i]);
-    despawn(obstacles[i]);
-  }
-  i++;
-
-  // dactyls
-  for (; i < CACTUS_AMOUNT + DACTYL_AMOUNT; i++) {
-    obstacle_constructor(obstacles[i], i + 1, SCREEN_WIDTH + OFFSCREEN_OFFSET,
-                         FLOOR_LEVEL + DACTYL_HEIGHT_DIFF, BLOB);
-    obstacles[i]->frame_spawn_threshold =
-        DACTYL_THRESHOLD * (i + 1 - CACTUS_AMOUNT);
-    update_obj_x(obstacles[i]);
-    update_obj_y(obstacles[i]);
-    despawn(obstacles[i]);
-  }
-  i++;
-
-  // clouds?
-  for (; i < CACTUS_AMOUNT + DACTYL_AMOUNT + CLOUD_AMOUNT; i++) {
-    obstacle_constructor(obstacles[i], i + 1, SCREEN_WIDTH + OFFSCREEN_OFFSET,
-                         FLOOR_LEVEL + CLOUD_HEIGHT_DIFF, BLOB);
-    obstacles[i]->frame_spawn_threshold =
-        CLOUD_THRESHOLD * (i + 1 - CACTUS_AMOUNT - DACTYL_AMOUNT);
-    update_obj_x(obstacles[i]);
-    update_obj_y(obstacles[i]);
-    despawn(obstacles[i]);
-  }
-}
-
 void update_obstacle(Object *obj) {
   // if object is moving
   if (obj->is_active) {
@@ -125,8 +88,7 @@ void update_obstacle(Object *obj) {
     }
 
     // progress the object
-    obj->x = obj->x - 1.5;
-    obj_set_pos(obj->attr, (int)obj->x, (int)obj->y);
+    obj_set_pos(obj->attr, (int)(obj->x - 1.5), (int)obj->y);
     update_obj_x(obj);
     update_obj_y(obj);
 
@@ -165,15 +127,63 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
   obj->attr->attr1 = ATTR1_X((int)obj->x) | ATTR1_SIZE_16x16;
   obj->attr->attr2 = ATTR2_ID(tile_number) | ATTR2_PRIO(obj_counter) |
                      ATTR2_PALBANK(tile_number);
+  update_obj_x(obj);
+  update_obj_y(obj);
 }
 
 void obstacle_constructor(Object *obj, int obj_counter, float x, float y,
-                          int tile_number) {
+                          int frame_spawn_threshold, int tile_number) {
   object_constructor(obj, obj_counter, x, y, false, tile_number);
+  obj->frame_spawn_threshold = frame_spawn_threshold;
+  despawn(obj);
 }
 
 void player_constructor(Object *obj, int obj_counter, float x, float y,
                         int tile_number) {
   object_constructor(obj, obj_counter, x, y, true, tile_number);
   obj->y_acceleration = 0.5;
+}
+
+// void construct_cacti(Object **cacti_array) {
+//   for (int i = 0; i < CACTUS_AMOUNT; i++) {
+//     obstacle_constructor(cacti_array[i], DACTYL_AMOUNT + (i + 1),
+//                          (SCREEN_WIDTH - (OFFSCREEN_OFFSET * (i + 1))),
+//                          FLOOR_LEVEL, BLOB);
+//     cacti_array[i]->frame_spawn_threshold = CACTUS_THRESHOLD * (i + 1);
+//     update_obj_x(cacti_array[i]);
+//     update_obj_y(cacti_array[i]);
+//     despawn(cacti_array[i]);
+//   }
+// }
+
+// void construct_dactyls(Object **dactyls_array) {
+//   for (int i = 0; i < DACTYL_AMOUNT; i++) {
+//     obstacle_constructor(dactyls_array[i], (i + 1),
+//                          SCREEN_WIDTH - (OFFSCREEN_OFFSET * (i + 1)),
+//                          FLOOR_LEVEL + DACTYL_HEIGHT_DIFF, BLOB);
+//     dactyls_array[i]->frame_spawn_threshold = DACTYL_THRESHOLD * (i + 1);
+//     update_obj_x(dactyls_array[i]);
+//     update_obj_y(dactyls_array[i]);
+//     despawn(dactyls_array[i]);
+//   }
+// }
+
+void construct_obstacles(Object **obstacles) { // TODO: Wrap in for loops
+  Object *above_blob = &(Object){};
+
+  obstacle_constructor(above_blob, 1, SCREEN_WIDTH + (OFFSCREEN_OFFSET),
+                       FLOOR_LEVEL + DACTYL_HEIGHT_DIFF, DACTYL_THRESHOLD,
+                       BLOB);
+  Object *middle_blob_1 = &(Object){};
+
+  obstacle_constructor(middle_blob_1, 2, SCREEN_WIDTH + (OFFSCREEN_OFFSET),
+                       FLOOR_LEVEL, CACTUS_THRESHOLD, BLOB);
+
+  Object *middle_blob_2 = &(Object){};
+
+  obstacle_constructor(middle_blob_2, 3, SCREEN_WIDTH + (OFFSCREEN_OFFSET),
+                       FLOOR_LEVEL, CACTUS_THRESHOLD * 2, BLOB);
+
+  obstacles =
+      (Object *[OBSTACLE_AMOUNT]){above_blob, middle_blob_1, middle_blob_2};
 }

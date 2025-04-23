@@ -29,13 +29,14 @@ void init_main(void) {
 
   score = 0;
   game_state = PRE_GAME;
-  frame_counter = 0;
+  frame_counter = 1;
   score_init();
   start_text();
 }
 
 void reset_game_state(void) {
   game_state = GAME;
+  frame_counter = 1;
   score = 0;
 }
 
