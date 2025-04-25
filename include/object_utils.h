@@ -167,3 +167,4 @@ void check_obj_offscreen(const Object *obj, RECT *dir);
  * @return A boolean indicating if the player is colliding with any obstacles.
  */
 bool check_player_collision(Object *player, Object **obstacles);
+void dino_walk_animation(Object *dino, int frame);

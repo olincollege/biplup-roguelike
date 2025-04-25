@@ -16,21 +16,23 @@ typedef enum { PRE_GAME = 0, GAME = 1, POST_GAME = 2 } Game_State;
 
 // Enumeration of each possible sprite in the game
 enum {
-  BLOB = 0,
-  DINO = 1,
-  CACTUS = 2,
-  DACTYL = 3,
+  DINO_WALK_1 = 0,
+  DINO_WALK_2 = 4,
+  CACTUS = 8,
+  DACTYL = 12,
   CLOUD = 4,
   PIPLUP = 5,
   SUDOWOODO = 6,
   AERODACTYL = 7,
   SWABLU = 8,
+  BLOB = 9,
 };
 
 // The Object struct, which contains a libtonc OBJ_ATTR field and several
 // kinematic properties that abstract interfacing directly with memory
 typedef struct object_t {
   OBJ_ATTR *attr;
+  int object_counter;
   bool is_active;
   float x;
   float y;

@@ -26,16 +26,16 @@ int main(void) {
   Object *above_blob = &(Object){};
 
   obstacle_constructor(above_blob, 1, FLOOR_LEVEL + DACTYL_HEIGHT_DIFF,
-                       DACTYL_FRAME_SPAWN_THRESHOLD, BLOB);
+                       DACTYL_FRAME_SPAWN_THRESHOLD, DACTYL);
   Object *middle_blob_1 = &(Object){};
 
   obstacle_constructor(middle_blob_1, 2, FLOOR_LEVEL,
-                       CACTUS_FRAME_SPAWN_THRESHOLD, BLOB);
+                       CACTUS_FRAME_SPAWN_THRESHOLD, CACTUS);
 
   Object *middle_blob_2 = &(Object){};
 
   obstacle_constructor(middle_blob_2, 3, FLOOR_LEVEL,
-                       CACTUS_FRAME_SPAWN_THRESHOLD * 2, BLOB);
+                       CACTUS_FRAME_SPAWN_THRESHOLD * 2, CACTUS);
 
   Object *obstacles[OBSTACLE_AMOUNT] = {above_blob, middle_blob_1,
                                         middle_blob_2};
@@ -60,6 +60,8 @@ int main(void) {
       for (int i = 0; i < OBSTACLE_AMOUNT; i++) {
         update_obstacle(obstacles[i]);
       }
+
+      dino_walk_animation(player, frame_counter);
 
       // check if the player is colliding with each object
       if (!check_player_collision(player, obstacles)) {
