@@ -8,6 +8,78 @@
 extern RECT offscreen;
 extern int frame_counter;
 
+void object_constructor(Object *obj, int obj_counter, float x, float y,
+                        bool is_active, int tile_number) {
+  obj->attr = &oam_mem[obj_counter];
+  obj->x = x;
+  obj->y = y;
+  obj->is_active = is_active;
+
+  obj->attr->attr0 =
+      ATTR0_Y((int)obj->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
+  obj->attr->attr1 = ATTR1_X((int)obj->x) | ATTR1_SIZE_16x16;
+  obj->attr->attr2 = ATTR2_ID(tile_number) | ATTR2_PRIO(obj_counter) |
+                     ATTR2_PALBANK(tile_number);
+  update_obj_x(obj);
+  update_obj_y(obj);
+}
+
+void obstacle_constructor(Object *obj, int obj_counter, float y,
+                          int frame_spawn_threshold, int tile_number) {
+  object_constructor(obj, obj_counter, SCREEN_WIDTH + OFFSCREEN_OFFSET, y,
+                     false, tile_number);
+  obj->frame_spawn_threshold = frame_spawn_threshold;
+  despawn(obj);
+}
+
+void player_constructor(Object *obj) {
+  object_constructor(obj, 0, PLAYER_X_POS, FLOOR_LEVEL, true, BLOB);
+  obj->y_acceleration = PLAYER_Y_ACCEL;
+}
+
+void despawn(Object *obj) {
+  obj_hide(obj->attr);
+  obj->is_active = false;
+}
+
+void spawn(Object *obj) {
+  obj_unhide(obj->attr, 0);
+  obj->is_active = true;
+}
+
+void set_obj_beginning(Object *obj) {
+  obj->x = 250;
+  obj_set_pos(obj->attr, obj->x, obj->y);
+}
+
+void update_obstacle(Object *obj) {
+  // if object is moving
+  if (obj->is_active) {
+    // if the object is offscreen, make sure it is hidden
+    check_obj_offscreen(obj, &offscreen);
+    if (offscreen.left) {
+      despawn(obj);
+    }
+
+    // progress the object
+    obj_set_pos(obj->attr, (int)(obj->x - OBSTACLE_X_VELOCITY), (int)obj->y);
+    update_obj_x(obj);
+    update_obj_y(obj);
+
+    // if object is waiting to spawn
+  } else if (frame_counter % obj->frame_spawn_threshold == 0) {
+    spawn(obj);
+    set_obj_beginning(obj);
+  }
+}
+
+void restart_obstacles(Object **obstacles) {
+  for (int i = 0; i < OBSTACLE_AMOUNT; i++) {
+    despawn(obstacles[i]);
+    set_obj_beginning(obstacles[i]);
+  }
+}
+
 bool check_obj_overlap(const Object *obj1, const Object *obj2) {
   // features of object 1
   int obj1_x = obj1->x;
@@ -63,42 +135,6 @@ void check_obj_offscreen(const Object *obj, RECT *dir) {
   }
 }
 
-void despawn(Object *obj) {
-  obj_hide(obj->attr);
-  obj->is_active = false;
-}
-
-void spawn(Object *obj) {
-  obj_unhide(obj->attr, 0);
-  obj->is_active = true;
-}
-
-void set_obj_beginning(Object *obj) {
-  obj->x = 250;
-  obj_set_pos(obj->attr, obj->x, obj->y);
-}
-
-void update_obstacle(Object *obj) {
-  // if object is moving
-  if (obj->is_active) {
-    // if the object is offscreen, make sure it is hidden
-    check_obj_offscreen(obj, &offscreen);
-    if (offscreen.left) {
-      despawn(obj);
-    }
-
-    // progress the object
-    obj_set_pos(obj->attr, (int)(obj->x - OBSTACLE_X_VELOCITY), (int)obj->y);
-    update_obj_x(obj);
-    update_obj_y(obj);
-
-    // if object is waiting to spawn
-  } else if (frame_counter % obj->frame_spawn_threshold == 0) {
-    spawn(obj);
-    set_obj_beginning(obj);
-  }
-}
-
 bool check_player_collision(Object *player, Object **obstacles) {
   for (int i = 0; i < OBSTACLE_AMOUNT; i++) {
     if (check_obj_overlap(player, obstacles[i])) {
@@ -106,40 +142,4 @@ bool check_player_collision(Object *player, Object **obstacles) {
     }
   }
   return false;
-}
-
-void restart_objects(Object **obstacles) {
-  for (int i = 0; i < OBSTACLE_AMOUNT; i++) {
-    despawn(obstacles[i]);
-    set_obj_beginning(obstacles[i]);
-  }
-}
-
-void object_constructor(Object *obj, int obj_counter, float x, float y,
-                        bool is_active, int tile_number) {
-  obj->attr = &oam_mem[obj_counter];
-  obj->x = x;
-  obj->y = y;
-  obj->is_active = is_active;
-
-  obj->attr->attr0 =
-      ATTR0_Y((int)obj->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
-  obj->attr->attr1 = ATTR1_X((int)obj->x) | ATTR1_SIZE_16x16;
-  obj->attr->attr2 = ATTR2_ID(tile_number) | ATTR2_PRIO(obj_counter) |
-                     ATTR2_PALBANK(tile_number);
-  update_obj_x(obj);
-  update_obj_y(obj);
-}
-
-void obstacle_constructor(Object *obj, int obj_counter, float y,
-                          int frame_spawn_threshold, int tile_number) {
-  object_constructor(obj, obj_counter, SCREEN_WIDTH + OFFSCREEN_OFFSET, y,
-                     false, tile_number);
-  obj->frame_spawn_threshold = frame_spawn_threshold;
-  despawn(obj);
-}
-
-void player_constructor(Object *obj) {
-  object_constructor(obj, 0, PLAYER_X_POS, FLOOR_LEVEL, true, BLOB);
-  obj->y_acceleration = PLAYER_Y_ACCEL;
 }

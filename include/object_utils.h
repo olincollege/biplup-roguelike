@@ -28,6 +28,12 @@ void obstacle_constructor(Object *obj, int obj_counter, float y,
 
 void player_constructor(Object *obj);
 
+void despawn(Object *obj);
+void spawn(Object *obj);
+void set_obj_beginning(Object *obj);
+void update_obstacle(Object *obj);
+void restart_obstacles(Object **obstacles);
+
 /**
  * Determine if there is overlap between two objects on the screen.
  *
@@ -55,10 +61,4 @@ bool check_obj_overlap(const Object *obj1, const Object *obj2);
  *            is offscreen.
  */
 void check_obj_offscreen(const Object *obj, RECT *dir);
-
-void despawn(Object *obj);
-void spawn(Object *obj);
-void set_obj_beginning(Object *obj);
-void update_obstacle(Object *obj);
 bool check_player_collision(Object *player, Object **obstacles);
-void restart_objects(Object **obstacles);
