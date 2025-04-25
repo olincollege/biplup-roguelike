@@ -26,6 +26,9 @@ sources = [
   'src/system_utils.c',
   'src/main.c',
   'src/assets/blob.s',
+  'src/assets/cactus_1.s',
+  'src/assets/dino_walk.s',
+  'src/assets/dactyl_glide.s',
   'src/assets/bg_with_road.s'
 ]
 
