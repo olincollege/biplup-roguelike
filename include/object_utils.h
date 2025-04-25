@@ -23,7 +23,7 @@
 void object_constructor(Object *obj, int obj_counter, float x, float y,
                         bool is_active, int tile_number);
 
-void obstacle_constructor(Object *obj, int obj_counter, float y,
+void obstacle_constructor(Object *obj, int obj_counter, float y, float velocity,
                           int frame_spawn_threshold, int tile_number);
 
 void player_constructor(Object *obj);
@@ -31,7 +31,8 @@ void player_constructor(Object *obj);
 void despawn(Object *obj);
 void spawn(Object *obj);
 void set_obj_beginning(Object *obj);
-void update_obstacle(Object *obj);
+void update_obstacles(Object **obstacles);
+void update_obstacle_velocities(Object **obstacles);
 void restart_obstacles(Object **obstacles);
 
 /**
