@@ -28,7 +28,7 @@ void obstacle_constructor(Object *obj, int obj_counter, float x, float y,
 void player_constructor(Object *obj, int obj_counter, float x, float y,
                         int tile_number);
 
-void construct_obstacles(Object **obstacles);
+// void construct_obstacles(Object **obstacles);
 
 // void construct_cacti(Object **cacti_array);
 // void construct_dactyls(Object **dactyls_array);

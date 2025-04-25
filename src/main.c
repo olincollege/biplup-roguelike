@@ -23,8 +23,24 @@ int main(void) {
   Object *player = &(Object){};
   player_constructor(player, 0, 40, FLOOR_LEVEL, BLOB);
 
-  Object *obstacles[OBSTACLE_AMOUNT] = {&(Object){}, &(Object){}, &(Object){}};
-  construct_obstacles(obstacles);
+  // my obstacles :)
+  Object *above_blob = &(Object){};
+
+  obstacle_constructor(above_blob, 1, SCREEN_WIDTH + (OFFSCREEN_OFFSET),
+                       FLOOR_LEVEL + DACTYL_HEIGHT_DIFF, DACTYL_THRESHOLD,
+                       BLOB);
+  Object *middle_blob_1 = &(Object){};
+
+  obstacle_constructor(middle_blob_1, 2, SCREEN_WIDTH + (OFFSCREEN_OFFSET),
+                       FLOOR_LEVEL, CACTUS_THRESHOLD, BLOB);
+
+  Object *middle_blob_2 = &(Object){};
+
+  obstacle_constructor(middle_blob_2, 3, SCREEN_WIDTH + (OFFSCREEN_OFFSET),
+                       FLOOR_LEVEL, CACTUS_THRESHOLD * 2, BLOB);
+
+  Object *obstacles[OBSTACLE_AMOUNT] = {above_blob, middle_blob_1,
+                                        middle_blob_2};
 
   // Object *above_blob = &(Object){};
 
