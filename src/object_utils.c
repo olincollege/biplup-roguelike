@@ -88,7 +88,7 @@ void update_obstacle(Object *obj) {
     }
 
     // progress the object
-    obj_set_pos(obj->attr, (int)(obj->x - 1.5), (int)obj->y);
+    obj_set_pos(obj->attr, (int)(obj->x - OBSTACLE_X_VELOCITY), (int)obj->y);
     update_obj_x(obj);
     update_obj_y(obj);
 
@@ -131,15 +131,15 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
   update_obj_y(obj);
 }
 
-void obstacle_constructor(Object *obj, int obj_counter, float x, float y,
+void obstacle_constructor(Object *obj, int obj_counter, float y,
                           int frame_spawn_threshold, int tile_number) {
-  object_constructor(obj, obj_counter, x, y, false, tile_number);
+  object_constructor(obj, obj_counter, SCREEN_WIDTH + OFFSCREEN_OFFSET, y,
+                     false, tile_number);
   obj->frame_spawn_threshold = frame_spawn_threshold;
   despawn(obj);
 }
 
-void player_constructor(Object *obj, int obj_counter, float x, float y,
-                        int tile_number) {
-  object_constructor(obj, obj_counter, x, y, true, tile_number);
-  obj->y_acceleration = 0.5;
+void player_constructor(Object *obj) {
+  object_constructor(obj, 0, PLAYER_X_POS, FLOOR_LEVEL, true, BLOB);
+  obj->y_acceleration = PLAYER_Y_ACCEL;
 }

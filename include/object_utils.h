@@ -7,6 +7,7 @@
 
 #define OFFSCREEN_OFFSET 10
 #define FLOOR_LEVEL 112
+
 #define DACTYL_HEIGHT_DIFF -10
 #define CLOUD_HEIGHT_DIFF -30
 
@@ -15,18 +16,17 @@
 #define CLOUD_AMOUNT 0
 #define OBSTACLE_AMOUNT CACTUS_AMOUNT + DACTYL_AMOUNT + CLOUD_AMOUNT
 
-#define CACTUS_THRESHOLD 100
-#define DACTYL_THRESHOLD 250
-#define CLOUD_THRESHOLD 80
+#define CACTUS_FRAME_SPAWN_THRESHOLD 100
+#define DACTYL_FRAME_SPAWN_THRESHOLD 250
+#define CLOUD_FRAME_SPAWN_THRESHOLD 80
 
 void object_constructor(Object *obj, int obj_counter, float x, float y,
                         bool is_active, int tile_number);
 
-void obstacle_constructor(Object *obj, int obj_counter, float x, float y,
+void obstacle_constructor(Object *obj, int obj_counter, float y,
                           int frame_spawn_threshold, int tile_number);
 
-void player_constructor(Object *obj, int obj_counter, float x, float y,
-                        int tile_number);
+void player_constructor(Object *obj);
 
 /**
  * Determine if there is overlap between two objects on the screen.

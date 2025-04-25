@@ -32,7 +32,7 @@ void set_jump_state(Object *obj, bool jumping) { obj->jumping = jumping; }
 
 void update_jump_state(Object *obj) {
   if (!obj->jumping) {
-    set_obj_y_velocity(obj, -10);
+    set_obj_y_velocity(obj, PLAYER_Y_JUMP_VEL);
     set_jump_state(obj, true);
   }
 }

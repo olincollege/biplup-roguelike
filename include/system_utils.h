@@ -2,6 +2,7 @@
 #include "tonc.h"
 
 #define MAX_SPRITES 128
+#define COUNT_SCORE_ON_FRAME 5
 
 void init_main(void);
 void reset_game_state(void);

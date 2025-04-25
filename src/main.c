@@ -19,23 +19,23 @@ int main(void) {
 
   // player
   Object *player = &(Object){};
-  player_constructor(player, 0, 40, FLOOR_LEVEL, BLOB);
+  player_constructor(player);
 
-  // my obstacles :) TODO: wrap into for loops per obstacle type
+  // my obstacles :) TODO: wrap into for loops per obstacle type, which clears
+  // out last magic numbers in main
   Object *above_blob = &(Object){};
 
-  obstacle_constructor(above_blob, 1, SCREEN_WIDTH + (OFFSCREEN_OFFSET),
-                       FLOOR_LEVEL + DACTYL_HEIGHT_DIFF, DACTYL_THRESHOLD,
-                       BLOB);
+  obstacle_constructor(above_blob, 1, FLOOR_LEVEL + DACTYL_HEIGHT_DIFF,
+                       DACTYL_FRAME_SPAWN_THRESHOLD, BLOB);
   Object *middle_blob_1 = &(Object){};
 
-  obstacle_constructor(middle_blob_1, 2, SCREEN_WIDTH + (OFFSCREEN_OFFSET),
-                       FLOOR_LEVEL, CACTUS_THRESHOLD, BLOB);
+  obstacle_constructor(middle_blob_1, 2, FLOOR_LEVEL,
+                       CACTUS_FRAME_SPAWN_THRESHOLD, BLOB);
 
   Object *middle_blob_2 = &(Object){};
 
-  obstacle_constructor(middle_blob_2, 3, SCREEN_WIDTH + (OFFSCREEN_OFFSET),
-                       FLOOR_LEVEL, CACTUS_THRESHOLD * 2, BLOB);
+  obstacle_constructor(middle_blob_2, 3, FLOOR_LEVEL,
+                       CACTUS_FRAME_SPAWN_THRESHOLD * 2, BLOB);
 
   Object *obstacles[OBSTACLE_AMOUNT] = {above_blob, middle_blob_1,
                                         middle_blob_2};
@@ -64,7 +64,7 @@ int main(void) {
       // check if the player is colliding with each object
       if (!check_player_collision(player, obstacles)) {
         // score update
-        if (frame_counter % 5 == 0) {
+        if (frame_counter % COUNT_SCORE_ON_FRAME == 0) {
           score_update();
         }
       } else {
