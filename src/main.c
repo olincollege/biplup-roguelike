@@ -54,7 +54,7 @@ int main(void) {
 
       // receive player input and update physics
       game_key_input(player);
-      update_physics(player, FLOOR_LEVEL);
+      update_player_physics(player, FLOOR_LEVEL);
 
       // allow each object to move, spawn, or wait
       for (int i = 0; i < OBSTACLE_AMOUNT; i++) {

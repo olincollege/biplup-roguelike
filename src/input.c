@@ -27,6 +27,6 @@ void postgame_key_input(Object **obstacles) {
   key_poll();
   if (key_is_down(KEY_UP)) {
     reset_game_state();
-    restart_objects(obstacles);
+    restart_obstacles(obstacles);
   }
 }
