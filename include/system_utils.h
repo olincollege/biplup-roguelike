@@ -9,3 +9,5 @@
 void init_main(void);
 void reset_game_state(void);
 void end_game(void);
+u32 retrieve_high_score(void);
+void save_high_score(void);

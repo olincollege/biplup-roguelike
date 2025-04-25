@@ -7,13 +7,15 @@ extern const TFont sys8Font;
 
 // here are some important globals
 extern int score;
+extern u32 high_score;
 char display_buffer[64];
 char score_buffer[64];
+char high_score_buffer[64];
 
 void end_text(void) {
-  tte_erase_screen();
+  erase_screen();
   snprintf(display_buffer, sizeof(display_buffer),
-           "game over :( final score: %d. press up to restart", score);
+           "game over :(\nfinal score: %d.\npress up to restart", score);
 
   // Draw the text
   tte_set_pos(50, 50);
@@ -21,7 +23,7 @@ void end_text(void) {
 }
 
 void start_text(void) {
-  tte_erase_screen();
+  erase_screen();
   snprintf(display_buffer, sizeof(display_buffer), "press up to start");
 
   // Draw the text
@@ -40,10 +42,10 @@ void score_init(void) {
 }
 
 void score_update(void) {
-  tte_erase_screen();
-  snprintf(score_buffer, sizeof(score_buffer), "Score: %d", score);
-
   // Clear previous text (optional but useful in bitmap mode)
+  erase_screen();
+  snprintf(score_buffer, sizeof(score_buffer), "Score: %d\nHigh Score: %lu",
+           score, high_score <= (u32)score ? (u32)score : high_score);
 
   // Draw the updated score
   tte_set_pos(0, 15);
