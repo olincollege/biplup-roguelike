@@ -1,3 +1,15 @@
+/**
+ * object_utils.h
+ *
+ * Describe functions and constants that construct, arrange, and compare objects
+ * in the game, such as obstacles and the player.
+ *
+ * The constants in this file are obstacle-specific values that Objects use
+ * depending on their type. Functions include object-specific constructors,
+ * depawn and respawn functionality, position resetting, and checking overlap
+ * wwith the screen and other objects.
+ */
+
 #pragma once
 
 #include "tonc.h"
@@ -5,33 +17,114 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define OFFSCREEN_OFFSET 10
-#define FLOOR_LEVEL 112
+#define DACTYL_HEIGHT_DIFF -10 // offset dactyls from the floor height
+#define CLOUD_HEIGHT_DIFF -30  // offset clouds from the floor height
 
-#define DACTYL_HEIGHT_DIFF -10
-#define CLOUD_HEIGHT_DIFF -30
+#define CACTUS_AMOUNT 2 // number of cacti in the game
+#define DACTYL_AMOUNT 1 // number of dactyls in the game
+#define CLOUD_AMOUNT 0  // number of clouds in the game
+#define OBSTACLE_AMOUNT                                                        \
+  CACTUS_AMOUNT + DACTYL_AMOUNT +                                              \
+      CLOUD_AMOUNT // total obstacles present in the game
 
-#define CACTUS_AMOUNT 2
-#define DACTYL_AMOUNT 1
-#define CLOUD_AMOUNT 0
-#define OBSTACLE_AMOUNT CACTUS_AMOUNT + DACTYL_AMOUNT + CLOUD_AMOUNT
+#define CACTUS_FRAME_SPAWN_THRESHOLD 100 // frame count before cacti respawn
+#define DACTYL_FRAME_SPAWN_THRESHOLD 250 // frame count before dactyls respawn
+#define CLOUD_FRAME_SPAWN_THRESHOLD 80   // frame count before clouds respawn
 
-#define CACTUS_FRAME_SPAWN_THRESHOLD 100
-#define DACTYL_FRAME_SPAWN_THRESHOLD 250
-#define CLOUD_FRAME_SPAWN_THRESHOLD 80
-
+/**
+ * Construct a generic game object.
+ *
+ * Given a pointer to an empty Object struct and several attributes, construct a
+ * new game object at this pointer. This function should not be called directly
+ * to construct a game object; instead, use obstacle_constructor or
+ * player_constructor.
+ *
+ * @param obj A pointer to the empty Object struct.
+ * @param obj_counter An int representing the index of this object in the game.
+ * @param x An int that is the x position of the object.
+ * @param y An int that is the y position of the object.
+ * @param is_active A bool indicating whether or not the object is being used
+ * currently.
+ * @param tile_number An int indicating the sprite of this object.
+ */
 void object_constructor(Object *obj, int obj_counter, float x, float y,
                         bool is_active, int tile_number);
 
+/**
+ * Construct an obstacle.
+ *
+ * Given a pointer to an empty Object struct and several attributes, construct a
+ * new obstacle at this pointer that possesses the attributes. The following
+ * fields are also predefined with this function:
+ * -> x: SCREEN_WIDTH + OFFSCREEN_OFFSET
+ * -> is_active: false
+ *
+ * @param obj A pointer to the empty Object struct.
+ * @param obj_counter An int representing the index of this object in the game.
+ * @param y An int that is the y position of the object.
+ * @param frame_spawn_threshold An int that defines the number of frames that
+ * must pass before the object respawns.
+ * @param tile_number An int indicating the sprite of this object.
+ */
 void obstacle_constructor(Object *obj, int obj_counter, float y,
                           int frame_spawn_threshold, int tile_number);
 
+/**
+ * Construct a player.
+ *
+ * Given a pointer to an empty Object struct, construct a new player using
+ * predefined values for all of its fields:
+ * -> obj_counter: 0
+ * -> x: PLAYER_X_POS
+ * -> y: FLOOR_LEVEL
+ * -> is_active: true
+ * -> tile_number: DINO
+ *
+ * @param player A pointer to the empty Object struct.
+ */
 void player_constructor(Object *obj);
 
+/**
+ * Disable an object in the game..
+ *
+ * Given a pointer to an Object struct, hide the object and set it to an
+ * inactive state. This forces the object to wait for the frame counter until it
+ * is allowed to respawn.
+ *
+ * @param obj A pointer to an Object struct.
+ */
 void despawn(Object *obj);
+
+/**
+ * Enable an object in the game..
+ *
+ * Given a pointer to an Object struct, show the object and set it to an
+ * active state. This allows the object to begin traversing the screen, if it is
+ * an obstacle.
+ *
+ * @param obj A pointer to an Object struct.
+ */
 void spawn(Object *obj);
-void set_obj_beginning(Object *obj);
+
+/**
+ * Determine how an obstacle should be moving in its current state and enact it.
+ *
+ * Given a pointer to an Object struct that is an obstacle, check if it is
+ * active or not. If so, progress the obstacle across the screen. If not, wait
+ * for the frame counter to advance until the obstacle can spawn.
+ *
+ * @param obj A pointer to an Object struct that is an obstacle.
+ */
 void update_obstacle(Object *obj);
+
+/**
+ * Reset all obstacles in the game to their starting position.
+ *
+ * Given a pointer to a list of Objects that are obstacles, reset their x
+ * positions to the default location SCREEN_WIDTH + OFFSCREEN_OFFSET.
+ *
+ * @param obstacles A pointer to a list of Objects that are obstacles.
+ */
 void restart_obstacles(Object **obstacles);
 
 /**
@@ -61,4 +154,16 @@ bool check_obj_overlap(const Object *obj1, const Object *obj2);
  *            is offscreen.
  */
 void check_obj_offscreen(const Object *obj, RECT *dir);
+
+/**
+ * Determine if the player is colliding with any obstacles.
+ *
+ * Given a pointer to a list of Objects representing the game obstacles and a
+ * pointer to an Object representing the player, evaluate if the player is
+ * colliding with any of them. If so, return true, and return false if not.
+ *
+ * @param player A pointer to the player.
+ * @param obstacles An pointer to a list of Objects representing obstacles.
+ * @return A boolean indicating if the player is colliding with any obstacles.
+ */
 bool check_player_collision(Object *player, Object **obstacles);

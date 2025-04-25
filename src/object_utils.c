@@ -47,11 +47,6 @@ void spawn(Object *obj) {
   obj->is_active = true;
 }
 
-void set_obj_beginning(Object *obj) {
-  obj->x = 250;
-  obj_set_pos(obj->attr, obj->x, obj->y);
-}
-
 void update_obstacle(Object *obj) {
   // if object is moving
   if (obj->is_active) {
@@ -69,14 +64,14 @@ void update_obstacle(Object *obj) {
     // if object is waiting to spawn
   } else if (frame_counter % obj->frame_spawn_threshold == 0) {
     spawn(obj);
-    set_obj_beginning(obj);
+    reset_obstacle_position(obj);
   }
 }
 
 void restart_obstacles(Object **obstacles) {
   for (int i = 0; i < OBSTACLE_AMOUNT; i++) {
     despawn(obstacles[i]);
-    set_obj_beginning(obstacles[i]);
+    reset_obstacle_position(obstacles[i]);
   }
 }
 
