@@ -1,36 +1,38 @@
 #pragma once
 
 #include "tonc.h"
+#include "types.h"
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef RECT direction;
+#define OFFSCREEN_OFFSET 10
+#define FLOOR_LEVEL 112
 
-typedef struct object_t {
-  OBJ_ATTR *attr;
-  bool is_active;
-  float x;
-  float y;
-  float x_velocity;
-  float y_velocity;
-  float x_acceleration;
-  float y_acceleration;
-  bool jumping;
-} Object;
+#define DACTYL_HEIGHT_DIFF -10
+#define CLOUD_HEIGHT_DIFF -30
 
-static const int width_table[3][4] = {
-    {8, 16, 32, 64},  // Square
-    {16, 32, 32, 64}, // Wide
-    {8, 8, 16, 32}    // Tall
-};
+#define CACTUS_AMOUNT 2
+#define DACTYL_AMOUNT 1
+#define CLOUD_AMOUNT 0
+#define OBSTACLE_AMOUNT CACTUS_AMOUNT + DACTYL_AMOUNT + CLOUD_AMOUNT
 
-static const int height_table[3][4] = {
-    {8, 16, 32, 64}, // Square
-    {8, 8, 16, 32},  // Wide
-    {16, 32, 32, 64} // Tall
-};
+#define CACTUS_FRAME_SPAWN_THRESHOLD 100
+#define DACTYL_FRAME_SPAWN_THRESHOLD 250
+#define CLOUD_FRAME_SPAWN_THRESHOLD 80
 
-#define MAX_SPRITES 128
+void object_constructor(Object *obj, int obj_counter, float x, float y,
+                        bool is_active, int tile_number);
+
+void obstacle_constructor(Object *obj, int obj_counter, float y,
+                          int frame_spawn_threshold, int tile_number);
+
+void player_constructor(Object *obj);
+
+void despawn(Object *obj);
+void spawn(Object *obj);
+void set_obj_beginning(Object *obj);
+void update_obstacle(Object *obj);
+void restart_obstacles(Object **obstacles);
 
 /**
  * Determine if there is overlap between two objects on the screen.
@@ -58,10 +60,5 @@ bool check_obj_overlap(const Object *obj1, const Object *obj2);
  * @param dir An pointer to a dir struct with values of 1 wherever the object
  *            is offscreen.
  */
-void check_obj_offscreen(const Object *obj, direction *dir);
-
-void despawn(Object *obj);
-void spawn(Object *obj);
-void set_obj_beginning(Object *obj);
-
-void reset_game_state(int *game_state, int *score);
+void check_obj_offscreen(const Object *obj, RECT *dir);
+bool check_player_collision(Object *player, Object **obstacles);

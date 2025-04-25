@@ -1,23 +1,32 @@
 #include "input.h"
 #include "kinematics.h"
+#include "object_utils.h"
+#include "system_utils.h"
 #include "text.h"
 #include "tonc.h"
-#include "utils.h"
+#include "types.h"
 
-void poll_key_input(Object *obj, int *game_state,
-                    int *score) { // TODO: split into key-by-key functions
+extern Game_State game_state;
+
+void pregame_key_input() {
   key_poll();
   if (key_is_down(KEY_UP)) {
-    switch (*game_state) {
-    case 0: // not started
-      reset_game_state(game_state, score);
-      break;
-    case 1: // gameplay
-      update_jump_state(obj);
-      break;
-    case 2: // game over
-      reset_game_state(game_state, score);
-      break;
-    }
+    reset_game_state();
+  }
+}
+
+void game_key_input(Object *player) {
+  key_poll();
+  if (key_is_down(KEY_UP)) {
+    update_jump_state(player);
+  }
+  // TODO: implement pokemon cheat here
+}
+
+void postgame_key_input(Object **obstacles) {
+  key_poll();
+  if (key_is_down(KEY_UP)) {
+    reset_game_state();
+    restart_obstacles(obstacles);
   }
 }

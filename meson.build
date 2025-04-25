@@ -22,7 +22,8 @@ sources = [
   'src/input.c',
   'src/text.c',
   'src/kinematics.c',
-  'src/utils.c',
+  'src/object_utils.c',
+  'src/system_utils.c',
   'src/main.c',
   'src/assets/blob.s',
   'src/assets/bg_with_road.s'

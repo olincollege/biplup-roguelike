@@ -1,6 +1,6 @@
 #include "kinematics.h"
 #include "tonc.h"
-#include "utils.h"
+#include "types.h"
 
 void update_obj_x(Object *obj) {
   int x_val = obj->attr->attr1 & 0x01FF;
@@ -28,23 +28,23 @@ void set_obj_y_acceleration(Object *obj, float y_acceleration) {
   obj->y_acceleration = y_acceleration;
 }
 
-void set_jump_state(Object *obj, bool jumping) { obj->jumping = jumping; }
+void set_jump_state(Object *player, bool jumping) { player->jumping = jumping; }
 
-void update_jump_state(Object *obj) {
-  if (!obj->jumping) {
-    set_obj_y_velocity(obj, -10);
-    set_jump_state(obj, true);
+void update_jump_state(Object *player) {
+  if (!player->jumping) {
+    set_obj_y_velocity(player, PLAYER_Y_JUMP_VEL);
+    set_jump_state(player, true);
   }
 }
 
-void update_physics(Object *obj, int min_y_val) {
-  set_obj_y_velocity(obj, obj->y_velocity + obj->y_acceleration);
-  float y_temp = obj->y + (obj->y_velocity + 10 * obj->y_acceleration);
+void update_player_physics(Object *player, int min_y_val) {
+  set_obj_y_velocity(player, player->y_velocity + player->y_acceleration);
+  float y_temp = player->y + (player->y_velocity + 10 * player->y_acceleration);
   if (y_temp >= min_y_val) {
     y_temp = min_y_val;
-    set_jump_state(obj, false);
+    set_jump_state(player, false);
   }
-  obj_set_pos(obj->attr, (int)obj->x, (int)y_temp);
-  update_obj_x(obj);
-  update_obj_y(obj);
+  obj_set_pos(player->attr, (int)player->x, (int)y_temp);
+  update_obj_x(player);
+  update_obj_y(player);
 }
