@@ -8,21 +8,25 @@
 
 extern Game_State game_state;
 
-void poll_key_input(
-    Object *obj, Object **obstacles) { // TODO: split into key-by-key functions
+void pregame_key_input() {
   key_poll();
   if (key_is_down(KEY_UP)) {
-    switch (game_state) {
-    case PRE_GAME: // not started
-      reset_game_state();
-      break;
-    case GAME: // gameplay
-      update_jump_state(obj);
-      break;
-    case POST_GAME: // game over
-      reset_game_state();
-      restart_objects(obstacles);
-      break;
-    }
+    reset_game_state();
+  }
+}
+
+void game_key_input(Object *player) {
+  key_poll();
+  if (key_is_down(KEY_UP)) {
+    update_jump_state(player);
+  }
+  // TODO: implement pokemon cheat here
+}
+
+void postgame_key_input(Object **obstacles) {
+  key_poll();
+  if (key_is_down(KEY_UP)) {
+    reset_game_state();
+    restart_objects(obstacles);
   }
 }

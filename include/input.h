@@ -2,7 +2,6 @@
 #include "tonc.h"
 #include "types.h"
 
-// inputs (keypresses)
-void poll_key_input(Object *obj, Object **obstacles);
-
-// outputs (sound)
+void pregame_key_input();
+void game_key_input(Object *player);
+void postgame_key_input(Object **obstacles);

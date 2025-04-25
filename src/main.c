@@ -47,13 +47,13 @@ int main(void) {
     // the whole game is wrapped into a switch-case based on game state
     switch (game_state) {
     case PRE_GAME: { // game has not started
-      poll_key_input(NULL, NULL);
+      pregame_key_input();
       break;
     }
     case GAME: { // main game
 
       // receive player input and update physics
-      poll_key_input(player, NULL);
+      game_key_input(player);
       update_physics(player, FLOOR_LEVEL);
 
       // allow each object to move, spawn, or wait
@@ -77,7 +77,7 @@ int main(void) {
     }
     case POST_GAME: {
       end_text();
-      poll_key_input(NULL, obstacles);
+      postgame_key_input(obstacles);
       break;
     }
     }
