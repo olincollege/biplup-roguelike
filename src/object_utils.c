@@ -143,27 +143,3 @@ void player_constructor(Object *obj, int obj_counter, float x, float y,
   object_constructor(obj, obj_counter, x, y, true, tile_number);
   obj->y_acceleration = 0.5;
 }
-
-// void construct_cacti(Object **cacti_array) {
-//   for (int i = 0; i < CACTUS_AMOUNT; i++) {
-//     obstacle_constructor(cacti_array[i], DACTYL_AMOUNT + (i + 1),
-//                          (SCREEN_WIDTH - (OFFSCREEN_OFFSET * (i + 1))),
-//                          FLOOR_LEVEL, BLOB);
-//     cacti_array[i]->frame_spawn_threshold = CACTUS_THRESHOLD * (i + 1);
-//     update_obj_x(cacti_array[i]);
-//     update_obj_y(cacti_array[i]);
-//     despawn(cacti_array[i]);
-//   }
-// }
-
-// void construct_dactyls(Object **dactyls_array) {
-//   for (int i = 0; i < DACTYL_AMOUNT; i++) {
-//     obstacle_constructor(dactyls_array[i], (i + 1),
-//                          SCREEN_WIDTH - (OFFSCREEN_OFFSET * (i + 1)),
-//                          FLOOR_LEVEL + DACTYL_HEIGHT_DIFF, BLOB);
-//     dactyls_array[i]->frame_spawn_threshold = DACTYL_THRESHOLD * (i + 1);
-//     update_obj_x(dactyls_array[i]);
-//     update_obj_y(dactyls_array[i]);
-//     despawn(dactyls_array[i]);
-//   }
-// }
