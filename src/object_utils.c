@@ -7,6 +7,7 @@
 
 extern RECT offscreen;
 extern int frame_counter;
+extern int animation_dino_frame;
 
 void object_constructor(Object *obj, int obj_counter, float x, float y,
                         bool is_active, int tile_number) {
@@ -14,12 +15,14 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
   obj->x = x;
   obj->y = y;
   obj->is_active = is_active;
+  obj->object_counter = obj_counter;
 
   obj->attr->attr0 =
       ATTR0_Y((int)obj->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
   obj->attr->attr1 = ATTR1_X((int)obj->x) | ATTR1_SIZE_16x16;
   obj->attr->attr2 = ATTR2_ID(tile_number) | ATTR2_PRIO(obj_counter) |
                      ATTR2_PALBANK(tile_number);
+
   update_obj_x(obj);
   update_obj_y(obj);
 }
@@ -33,7 +36,7 @@ void obstacle_constructor(Object *obj, int obj_counter, float y,
 }
 
 void player_constructor(Object *obj) {
-  object_constructor(obj, 0, PLAYER_X_POS, FLOOR_LEVEL, true, BLOB);
+  object_constructor(obj, 0, PLAYER_X_POS, FLOOR_LEVEL, true, DINO_WALK_1);
   obj->y_acceleration = PLAYER_Y_ACCEL;
 }
 
@@ -142,4 +145,19 @@ bool check_player_collision(Object *player, Object **obstacles) {
     }
   }
   return false;
+}
+
+void dino_walk_animation(Object *dino, int frame) {
+  if (frame % 7 == 1) {
+    if (animation_dino_frame == 0) {
+      dino->attr->attr2 = ATTR2_ID(DINO_WALK_1) |
+                          ATTR2_PRIO(dino->object_counter) |
+                          ATTR2_PALBANK(DINO_WALK_1);
+    } else {
+      dino->attr->attr2 = ATTR2_ID(DINO_WALK_2) |
+                          ATTR2_PRIO(dino->object_counter) |
+                          ATTR2_PALBANK(DINO_WALK_2);
+    }
+    animation_dino_frame = !animation_dino_frame;
+  }
 }

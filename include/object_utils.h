@@ -62,3 +62,4 @@ bool check_obj_overlap(const Object *obj1, const Object *obj2);
  */
 void check_obj_offscreen(const Object *obj, RECT *dir);
 bool check_player_collision(Object *player, Object **obstacles);
+void dino_walk_animation(Object *dino, int frame);
