@@ -20,7 +20,7 @@
 
 #define OFFSCREEN_OFFSET 10     // offset obstacles from the right of the screen
 #define PLAYER_X_POS 40         // x position of the player
-#define PLAYER_Y_JUMP_VEL -10   // y velocity of the player while jumping
+#define PLAYER_Y_JUMP_VEL -11   // y velocity of the player while jumping
 #define PLAYER_Y_ACCEL 0.5      // y acceleration of the player while jumping
 #define OBSTACLE_X_VELOCITY 1.5 // x velocity of obstacles
 
@@ -55,7 +55,7 @@ void update_obj_y(Object *obj);
  *
  * @param obs A pointer to an Object struct that is an obstacle.
  */
-void reset_obstacle_position(Object *obj);
+void reset_obstacle_position(Obstacle *obs);
 
 /**
  * Set the x velocity of an obstacle.
@@ -66,7 +66,7 @@ void reset_obstacle_position(Object *obj);
  * @param x_velocity A float representing the x velocity to apply to the
  * obstacle.
  */
-void set_obstacle_x_velocity(Object *obs, float x_velocity);
+void set_obstacle_x_velocity(Obstacle *obs, float x_velocity);
 
 /**
  * Set the y velocity of the player.
@@ -76,7 +76,7 @@ void set_obstacle_x_velocity(Object *obs, float x_velocity);
  * @param player A pointer to an Object struct representing the player.
  * @param y_velocity A float representing the y velocity to apply to the player.
  */
-void set_player_y_velocity(Object *player, float y_velocity);
+void set_player_y_velocity(Player *player, float y_velocity);
 
 /**
  * Set the y acceleration of the player.
@@ -88,7 +88,7 @@ void set_player_y_velocity(Object *player, float y_velocity);
  * @param y_acceleration A float representing the y acceleration to apply to the
  * player.
  */
-void set_obj_y_acceleration(Object *player, float y_acceleration);
+void set_obj_y_acceleration(Player *player, float y_acceleration);
 
 /**
  * Set the jump state of the player.
@@ -99,7 +99,7 @@ void set_obj_y_acceleration(Object *player, float y_acceleration);
  * @param y_acceleration A boolean representing whether or not the player is now
  * jumping.
  */
-void set_jump_state(Object *player, bool jumping);
+void set_jump_state(Player *player, bool jumping);
 
 /**
  * Cause the player to perform an in-game jump.
@@ -109,7 +109,7 @@ void set_jump_state(Object *player, bool jumping);
  *
  * @param player A pointer to an Object struct representing the player.
  */
-void update_jump_state(Object *player);
+void update_jump_state(Player *player);
 
 /**
  * Calculate the correct position of the player based on kinematics.
@@ -120,4 +120,4 @@ void update_jump_state(Object *player);
  *
  * @param player A pointer to an Object struct representing the player.
  */
-void update_player_physics(Object *player);
+void update_player_physics(Player *player);

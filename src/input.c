@@ -15,7 +15,7 @@ void pregame_key_input() {
   }
 }
 
-void game_key_input(Object *player) {
+void game_key_input(Player *player) {
   key_poll();
   if (key_is_down(KEY_UP)) {
     update_jump_state(player);
@@ -23,7 +23,7 @@ void game_key_input(Object *player) {
   // TODO: implement pokemon cheat here
 }
 
-void postgame_key_input(Object **obstacles) {
+void postgame_key_input(Obstacle **obstacles) {
   key_poll();
   if (key_is_down(KEY_UP)) {
     reset_game_state();

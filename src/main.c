@@ -18,27 +18,30 @@ int main(void) {
   init_main();
 
   // player
-  Object *player = &(Object){};
+  Player *player = &(Player){0};
+  player->obj_args = &(Object){0};
   player_constructor(player);
 
   // my obstacles :) TODO: wrap into for loops per obstacle type, which clears
   // out last magic numbers in main
-  Object *above_blob = &(Object){};
+  Obstacle *above_blob = &(Obstacle){0};
+  above_blob->obj_args = &(Object){0};
 
   obstacle_constructor(above_blob, 1, FLOOR_LEVEL + DACTYL_HEIGHT_DIFF,
                        DACTYL_FRAME_SPAWN_THRESHOLD, DACTYL);
-  Object *middle_blob_1 = &(Object){};
+  Obstacle *middle_blob_1 = &(Obstacle){0};
+  middle_blob_1->obj_args = &(Object){0};
 
   obstacle_constructor(middle_blob_1, 2, FLOOR_LEVEL,
                        CACTUS_FRAME_SPAWN_THRESHOLD, CACTUS);
 
-  Object *middle_blob_2 = &(Object){};
-
+  Obstacle *middle_blob_2 = &(Obstacle){0};
+  middle_blob_2->obj_args = &(Object){0};
   obstacle_constructor(middle_blob_2, 3, FLOOR_LEVEL,
                        CACTUS_FRAME_SPAWN_THRESHOLD * 2, CACTUS);
 
-  Object *obstacles[OBSTACLE_AMOUNT] = {above_blob, middle_blob_1,
-                                        middle_blob_2};
+  Obstacle *obstacles[OBSTACLE_AMOUNT] = {above_blob, middle_blob_1,
+                                          middle_blob_2};
 
   while (true) {
     // sync up the video
@@ -61,7 +64,7 @@ int main(void) {
         update_obstacle(obstacles[i]);
       }
 
-      dino_walk_animation(player, frame_counter);
+      dino_walk_animation(player->obj_args, frame_counter);
 
       // check if the player is colliding with each object
       if (!check_player_collision(player, obstacles)) {

@@ -17,7 +17,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define DACTYL_HEIGHT_DIFF -10 // offset dactyls from the floor height
+#define DACTYL_HEIGHT_DIFF -20 // offset dactyls from the floor height
 #define CLOUD_HEIGHT_DIFF -30  // offset clouds from the floor height
 
 #define CACTUS_AMOUNT 2 // number of cacti in the game
@@ -43,36 +43,35 @@
  * @param obj_counter An int representing the index of this object in the game.
  * @param x An int that is the x position of the object.
  * @param y An int that is the y position of the object.
- * @param is_active A bool indicating whether or not the object is being used
- * currently.
  * @param tile_number An int indicating the sprite of this object.
  */
 void object_constructor(Object *obj, int obj_counter, float x, float y,
-                        bool is_active, int tile_number);
+                        int tile_number);
 
 /**
  * Construct an obstacle.
  *
- * Given a pointer to an empty Object struct and several attributes, construct a
- * new obstacle at this pointer that possesses the attributes. The following
+ * Given a pointer to an empty Obstacle struct and several attributes, construct
+ * a new obstacle at this pointer that possesses the attributes. The following
  * fields are also predefined with this function:
  * -> x: SCREEN_WIDTH + OFFSCREEN_OFFSET
+ * -> x_velocity: 0
  * -> is_active: false
  *
- * @param obj A pointer to the empty Object struct.
+ * @param obs A pointer to the empty Obstacle struct.
  * @param obj_counter An int representing the index of this object in the game.
  * @param y An int that is the y position of the object.
  * @param frame_spawn_threshold An int that defines the number of frames that
  * must pass before the object respawns.
  * @param tile_number An int indicating the sprite of this object.
  */
-void obstacle_constructor(Object *obj, int obj_counter, float y,
+void obstacle_constructor(Obstacle *obs, int obj_counter, float y,
                           int frame_spawn_threshold, int tile_number);
 
 /**
  * Construct a player.
  *
- * Given a pointer to an empty Object struct, construct a new player using
+ * Given a pointer to an empty Player struct, construct a new player using
  * predefined values for all of its fields:
  * -> obj_counter: 0
  * -> x: PLAYER_X_POS
@@ -82,50 +81,50 @@ void obstacle_constructor(Object *obj, int obj_counter, float y,
  *
  * @param player A pointer to the empty Object struct.
  */
-void player_constructor(Object *obj);
+void player_constructor(Player *player);
 
 /**
  * Disable an object in the game..
  *
- * Given a pointer to an Object struct, hide the object and set it to an
- * inactive state. This forces the object to wait for the frame counter until it
- * is allowed to respawn.
+ * Given a pointer to an Obstacle struct, hide the obstacle and set it to an
+ * inactive state. This forces the obstacle to wait for the frame counter until
+ * it is allowed to respawn.
  *
- * @param obj A pointer to an Object struct.
+ * @param obs A pointer to an Obstacle struct.
  */
-void despawn(Object *obj);
+void despawn(Obstacle *obs);
 
 /**
  * Enable an object in the game..
  *
- * Given a pointer to an Object struct, show the object and set it to an
- * active state. This allows the object to begin traversing the screen, if it is
- * an obstacle.
+ * Given a pointer to an Obstacle struct, show the obstacle and set it to an
+ * active state. This allows the obstacle to begin traversing the screen, if it
+ * is an obstacle.
  *
- * @param obj A pointer to an Object struct.
+ * @param obs A pointer to an Obstacle struct.
  */
-void spawn(Object *obj);
+void spawn(Obstacle *obs);
 
 /**
  * Determine how an obstacle should be moving in its current state and enact it.
  *
- * Given a pointer to an Object struct that is an obstacle, check if it is
- * active or not. If so, progress the obstacle across the screen. If not, wait
- * for the frame counter to advance until the obstacle can spawn.
+ * Given a pointer to an Obstacle struct, check if it is active or not. If so,
+ * progress the obstacle across the screen. If not, wait for the frame counter
+ * to advance until the obstacle can spawn.
  *
- * @param obj A pointer to an Object struct that is an obstacle.
+ * @param obs A pointer to an Obstacle struct that is an obstacle.
  */
-void update_obstacle(Object *obj);
+void update_obstacle(Obstacle *obs);
 
 /**
  * Reset all obstacles in the game to their starting position.
  *
- * Given a pointer to a list of Objects that are obstacles, reset their x
- * positions to the default location SCREEN_WIDTH + OFFSCREEN_OFFSET.
+ * Given a pointer to a list of Obstacles, reset their x positions to the
+ * default location SCREEN_WIDTH + OFFSCREEN_OFFSET.
  *
  * @param obstacles A pointer to a list of Objects that are obstacles.
  */
-void restart_obstacles(Object **obstacles);
+void restart_obstacles(Obstacle **obstacles);
 
 /**
  * Determine if there is overlap between two objects on the screen.
@@ -166,5 +165,5 @@ void check_obj_offscreen(const Object *obj, RECT *dir);
  * @param obstacles An pointer to a list of Objects representing obstacles.
  * @return A boolean indicating if the player is colliding with any obstacles.
  */
-bool check_player_collision(Object *player, Object **obstacles);
+bool check_player_collision(Player *player, Obstacle **obstacles);
 void dino_walk_animation(Object *dino, int frame);
