@@ -27,8 +27,11 @@ void pregame_key_input();
  *
  * Collect key input during the GAME state. When the up button is pressed, set
  * the player to a jumping state.
+ *
+ * @param player A Player struct, which is passed to the update_jump_state
+ * function.
  */
-void game_key_input(Object *player);
+void game_key_input(Player *player);
 
 /**
  * Collect key input during the POSTGAME state.
@@ -36,5 +39,8 @@ void game_key_input(Object *player);
  * Collect key input during the POSTGAME state. When the up button is pressed,
  * reset the game to a score of 0, a frame count of 1, and the state GAME.
  * Also, reset all game obstacles to be hidden and offscreen.
+ *
+ * @param obstacles A pointer to a list of Obstacle structs, which will be
+ * reset.
  */
-void postgame_key_input(Object **obstacles);
+void postgame_key_input(Obstacle **obstacles);
