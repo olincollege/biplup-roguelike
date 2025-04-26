@@ -20,7 +20,7 @@
 
 #define OFFSCREEN_OFFSET 10     // offset obstacles from the right of the screen
 #define PLAYER_X_POS 40         // x position of the player
-#define PLAYER_Y_JUMP_VEL -10   // y velocity of the player while jumping
+#define PLAYER_Y_JUMP_VEL -11   // y velocity of the player while jumping
 #define PLAYER_Y_ACCEL 0.5      // y acceleration of the player while jumping
 #define OBSTACLE_X_VELOCITY 1.5 // x velocity of obstacles
 
