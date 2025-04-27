@@ -97,7 +97,7 @@ void player_constructor(Player *player);
 void despawn(Obstacle *obs);
 
 /**
- * Enable an object in the game..
+ * Enable an object in the game.
  *
  * Given a pointer to an Obstacle struct, show the obstacle and set it to an
  * active state. This allows the obstacle to begin traversing the screen, if it
@@ -107,6 +107,14 @@ void despawn(Obstacle *obs);
  */
 void spawn(Obstacle *obs);
 
+/**
+ * Update all of the obstacle velocities when the score hits a milestone.
+ *
+ * Given an array of obstacles, update all of those obstacles' velocities by a
+ * multiplier based on the score.
+ *
+ * @param obstacles The array of obstacles to be edited.
+ */
 void update_obstacle_velocities(Obstacle **obstacles);
 
 /**
