@@ -26,7 +26,16 @@ sources = [
   'src/system_utils.c',
   'src/main.c',
   'src/assets/blob.s',
-  'src/assets/bg_with_road.s'
+  'src/assets/bg_with_road.s',
+  'src/assets/aero_fly.s',
+  'src/assets/aero_single.s',
+  'src/assets/biplup_walk.s',
+  'src/assets/cactus.s',
+  'src/assets/cloud.s',
+  'src/assets/dactyl_flying.s',
+  'src/assets/dino_walk.s',
+  'src/assets/sudowoodo.s',
+  'src/assets/dactyl_single.s'
 ]
 
 # All of the include directories used by your project.
