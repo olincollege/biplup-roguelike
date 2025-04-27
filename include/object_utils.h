@@ -59,13 +59,14 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
  * -> is_active: false
  *
  * @param obs A pointer to the empty Obstacle struct.
- * @param obj_counter An int representing the index of this object in the game.
- * @param y An int that is the y position of the object.
+ * @param obj_counter An int representing the index of this obstacle in the game.
+ * @param y An float that is the y position of the obstacle.
+ * @param x_velocity A float representing the obstacle's base velocity.
  * @param frame_spawn_threshold An int that defines the number of frames that
- * must pass before the object respawns.
- * @param tile_number An int indicating the sprite of this object.
+ * must pass before the obstacle respawns.
+ * @param tile_number An int indicating the sprite of this obstacle.
  */
-void obstacle_constructor(Obstacle *obs, int obj_counter, float y,
+void obstacle_constructor(Object *obj, int obj_counter, float y, float x_velocity,
                           int frame_spawn_threshold, int tile_number);
 
 /**
@@ -105,16 +106,19 @@ void despawn(Obstacle *obs);
  */
 void spawn(Obstacle *obs);
 
+void update_obstacles(Object **obstacles);
+void update_obstacle_velocities(Object **obstacles);
+                          
 /**
- * Determine how an obstacle should be moving in its current state and enact it.
+ * Determine how the game's obstacles should be moving in their current states and enact it.
  *
- * Given a pointer to an Obstacle struct, check if it is active or not. If so,
+ * Given a pointer to a array of Obstacles, check if each is active or not. If so,
  * progress the obstacle across the screen. If not, wait for the frame counter
  * to advance until the obstacle can spawn.
  *
- * @param obs A pointer to an Obstacle struct that is an obstacle.
+ * @param obs A pointer to an array of Obstacle structs.
  */
-void update_obstacle(Obstacle *obs);
+void update_obstacles(Obstacle **obstacles);
 
 /**
  * Reset all obstacles in the game to their starting position.

@@ -28,16 +28,17 @@ int main(void) {
   above_blob->obj_args = &(Object){0};
 
   obstacle_constructor(above_blob, 1, FLOOR_LEVEL + DACTYL_HEIGHT_DIFF,
-                       DACTYL_FRAME_SPAWN_THRESHOLD, DACTYL);
+                       DACTYL_BASE_X_VELOCITY, DACTYL_FRAME_SPAWN_THRESHOLD,
+                       DACTYL);
   Obstacle *middle_blob_1 = &(Obstacle){0};
   middle_blob_1->obj_args = &(Object){0};
 
-  obstacle_constructor(middle_blob_1, 2, FLOOR_LEVEL,
+  obstacle_constructor(middle_blob_1, 2, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
                        CACTUS_FRAME_SPAWN_THRESHOLD, CACTUS);
 
   Obstacle *middle_blob_2 = &(Obstacle){0};
   middle_blob_2->obj_args = &(Object){0};
-  obstacle_constructor(middle_blob_2, 3, FLOOR_LEVEL,
+  obstacle_constructor(middle_blob_2, 3, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
                        CACTUS_FRAME_SPAWN_THRESHOLD * 2, CACTUS);
 
   Obstacle *obstacles[OBSTACLE_AMOUNT] = {above_blob, middle_blob_1,
@@ -60,9 +61,7 @@ int main(void) {
       update_player_physics(player);
 
       // allow each object to move, spawn, or wait
-      for (int i = 0; i < OBSTACLE_AMOUNT; i++) {
-        update_obstacle(obstacles[i]);
-      }
+      update_obstacles(obstacles);
 
       dino_walk_animation(player->obj_args, frame_counter);
 

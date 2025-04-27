@@ -22,7 +22,9 @@
 #define PLAYER_X_POS 40         // x position of the player
 #define PLAYER_Y_JUMP_VEL -11   // y velocity of the player while jumping
 #define PLAYER_Y_ACCEL 0.5      // y acceleration of the player while jumping
-#define OBSTACLE_X_VELOCITY 1.5 // x velocity of obstacles
+
+#define CACTI_BASE_X_VELOCITY -1.5 // initial x velocity of cacti
+#define DACTYL_BASE_X_VELOCITY -2 // initial x velocity of dactyls
 
 /**
  * Align the x position of the object struct and its OBJ_ATTR field.
