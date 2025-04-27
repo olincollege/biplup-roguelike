@@ -59,6 +59,7 @@ void reset_game_state(void) {
 }
 
 void end_game(void) { game_state = POST_GAME; }
+
 u32 retrieve_high_score(void) {
   int total_size = 4;
   vu8 byte_parts_of_data[] = {0, 0, 0, 0};
