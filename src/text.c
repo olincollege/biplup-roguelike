@@ -31,7 +31,7 @@ void start_text(void) {
   tte_write(display_buffer);
 }
 
-void score_init(void) {
+void text_init(void) {
   tte_init_se(0,                      // Background number (BG 0)
               BG_CBB(0) | BG_SBB(31), // BG control (for REG_BGxCNT)
               0,                      // Tile offset (special cattr)
@@ -44,14 +44,17 @@ void score_init(void) {
 void score_update(void) {
   // Clear previous text (optional but useful in bitmap mode)
   erase_screen();
+
+  // update the score
+  score++;
+
+  // construct the text
   snprintf(score_buffer, sizeof(score_buffer), "Score: %d\nHigh Score: %lu",
            score, high_score <= (u32)score ? (u32)score : high_score);
 
-  // Draw the updated score
+  // Draw the text
   tte_set_pos(0, 15);
-  tte_write(score_buffer); // Write the score
-
-  score++;
+  tte_write(score_buffer);
 }
 
 void erase_screen(void) { tte_erase_screen(); }
