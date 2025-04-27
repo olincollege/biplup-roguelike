@@ -47,7 +47,7 @@ void init_main(void) {
   game_state = PRE_GAME;
   frame_counter = 1;
   animation_dino_frame = 0;
-  score_init();
+  text_init();
   start_text();
 }
 

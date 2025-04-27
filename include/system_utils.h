@@ -11,11 +11,19 @@
 #define MAX_SPRITES 128 // maximum number of sprites in the game
 #define FLOOR_LEVEL 112 // height of the floor on the screen
 #define COUNT_SCORE_ON_FRAME                                                   \
-  5 // number of frames to pass before iterating score
+  5                         // number of frames to pass before iterating score
 #define SCORE_MILESTONE 500 // number of frames to pass before bumping speed
 
 /**
- * Initialize memory for sprites and set up several global game variables.
+ * Initialize memory for sprites and values for key global variables.
+ *
+ * Initialize memory for each spite in the game, and set up libtonc-specific
+ * video requirements. Then set the following global variables:
+ * -> score = 0;
+ * -> high_score = retrieve_high_score();
+ * -> game_state = PRE_GAME;
+ * -> frame_counter = 1;
+ * -> animation_dino_frame = 0;
  */
 void init_main(void);
 
