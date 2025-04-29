@@ -7,10 +7,7 @@
 
 extern RECT offscreen;
 extern int frame_counter;
-extern int score;
 extern int animation_frame;
-extern int last_cheat_frame;
-extern int cheat_sprite_state;
 
 void object_constructor(Object *obj, int obj_counter, float x, float y,
                         int tile_number) {
@@ -44,7 +41,7 @@ void obstacle_constructor(Obstacle *obj, int obj_counter, float y,
 }
 
 void player_constructor(Player *obj) {
-  object_constructor(obj->obj_args, 0, PLAYER_X_POS, FLOOR_LEVEL, DINO);
+  object_constructor(obj->obj_args, 0, PLAYER_X_POS, FLOOR_LEVEL, BIPLUP);
   obj->y_velocity = 0;
   obj->y_acceleration = PLAYER_Y_ACCEL;
 }
@@ -178,33 +175,16 @@ bool check_player_collision(Player *player, Obstacle **obstacles) {
   return false;
 }
 
-void cheat_toggle_pokemon(Player *player, Obstacle **obstacles) {
-  // update the state
-  cheat_sprite_state = !cheat_sprite_state;
-
-  // update the player
-  change_sprite(player->obj_args, get_sprite_id(player->obj_args));
-
-  // update all obstacles
-  for (int i = 0; i < OBSTACLE_AMOUNT; i++) {
-    change_sprite(obstacles[i]->obj_args,
-                  get_sprite_id(obstacles[i]->obj_args));
-  }
-  last_cheat_frame = frame_counter;
-}
-
-void change_sprite(Object *obj, int id) {
-  obj->attr->attr2 =
-      ATTR2_ID(id) | ATTR2_PRIO(obj->object_counter) | ATTR2_PALBANK(id);
-}
-
-void animation(Object *obj, int frame) {
+void animation(Object *obj, int frame, int id) {
   if (frame % 7 == 1) {
     if (animation_frame == 0) {
-      change_sprite(obj, get_sprite_id(obj));
+      obj->attr->attr2 =
+          ATTR2_ID(id) | ATTR2_PRIO(obj->object_counter) | ATTR2_PALBANK(id);
     } else {
-      change_sprite(obj, get_sprite_id(obj) + 16);
+      obj->attr->attr2 = ATTR2_ID(id + 16) | ATTR2_PRIO(obj->object_counter) |
+                         ATTR2_PALBANK(id + 16);
     }
+    animation_frame = !animation_frame;
   }
 }
 

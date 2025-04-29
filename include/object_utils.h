@@ -18,36 +18,41 @@
 #include <stdint.h>
 
 #define DACTYL_HEIGHT_DIFF -35 // offset dactyls from the floor height
-#define CLOUD_HEIGHT_DIFF -110 // offset clouds from the floor height
+#define CLOUD_HEIGHT_DIFF -100 // offset clouds from the floor height
 
 #define CACTUS_AMOUNT 2 // number of cacti in the game
 #define DACTYL_AMOUNT 1 // number of dactyls in the game
+#define CLOUD_AMOUNT 1  // number of clouds in the game
 #define CLOUD_AMOUNT 1  // number of clouds in the game
 #define OBSTACLE_AMOUNT                                                        \
   CACTUS_AMOUNT + DACTYL_AMOUNT +                                              \
       CLOUD_AMOUNT      // total obstacles present in the game
 #define HITBOX_BUFFER 8 // buffer for hitbox
+CLOUD_AMOUNT            // total obstacles present in the game
+#define HITBOX_BUFFER 8 // buffer for hitbox
 
 #define CACTUS_FRAME_SPAWN_THRESHOLD 100 // frame count before cacti respawn
-#define DACTYL_FRAME_SPAWN_THRESHOLD 300 // frame count before dactyls respawn
+#define DACTYL_FRAME_SPAWN_THRESHOLD 230 // frame count before dactyls respawn
 #define CLOUD_FRAME_SPAWN_THRESHOLD 80   // frame count before clouds respawn
 
-/**
- * Construct a generic game object.
- *
- * Given a pointer to an empty Object struct and several attributes, construct a
- * new game object at this pointer. This function should not be called directly
- * to construct a game object; instead, use obstacle_constructor or
- * player_constructor.
- *
- * @param obj A pointer to the empty Object struct.
- * @param obj_counter An int representing the index of this object in the game.
- * @param x An int that is the x position of the object.
- * @param y An int that is the y position of the object.
- * @param tile_number An int indicating the sprite of this object.
- */
-void object_constructor(Object *obj, int obj_counter, float x, float y,
-                        int tile_number);
+    /**
+     * Construct a generic game object.
+     *
+     * Given a pointer to an empty Object struct and several attributes,
+     * construct a new game object at this pointer. This function should not be
+     * called directly to construct a game object; instead, use
+     * obstacle_constructor or player_constructor.
+     *
+     * @param obj A pointer to the empty Object struct.
+     * @param obj_counter An int representing the index of this object in the
+     * game.
+     * @param x An int that is the x position of the object.
+     * @param y An int that is the y position of the object.
+     * @param tile_number An int indicating the sprite of this object.
+     */
+    void
+    object_constructor(Object *obj, int obj_counter, float x, float y,
+                       int tile_number);
 
 /**
  * Construct an obstacle.
@@ -180,11 +185,4 @@ void check_obj_offscreen(const Object *obj, RECT *dir);
  * @return A boolean indicating if the player is colliding with any obstacles.
  */
 bool check_player_collision(Player *player, Obstacle **obstacles);
-
-void cheat_toggle_pokemon(Player *player, Obstacle **obstacles);
-
-void animation(Object *obj, int frame);
-
-void change_sprite(Object *obj, int id);
-
-Sprite_ID get_sprite_id(Object *obj);
+void animation(Object *obj, int frame, int id);

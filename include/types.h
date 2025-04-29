@@ -15,15 +15,15 @@
 typedef enum { PRE_GAME = 0, GAME = 1, POST_GAME = 2 } Game_State;
 
 // Enumeration of each possible sprite in the game
-typedef enum {
+enum {
   DINO = 0,
   CACTUS = 32,
   DACTYL = 48,
-  CLOUD = 80,
-  BIPLUP = 96,
-  SUDOWOODO = 128,
-  AERODACTYL = 144,
-  SWABLU = 176,
+  CLOUD = 64,
+  BIPLUP = 80,
+  SUDOWOODO = 112,
+  AERODACTYL = 128,
+  SWABLU = 8,
   BLOB = 9,
 } Sprite_ID;
 

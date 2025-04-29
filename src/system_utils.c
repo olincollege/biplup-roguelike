@@ -3,61 +3,53 @@
 #include "tonc.h"
 #include "types.h"
 
-#include "assets/aero_fly_32_bw.h"
+#include "assets/aero_fly_32.h"
 #include "assets/bg_with_road.h"
 #include "assets/biplup_walk_32.h"
-#include "assets/biplup_walk_32_bw.h"
 #include "assets/blob.h"
 #include "assets/cactus_1_32.h"
 #include "assets/cloud_32.h"
-#include "assets/dactyl_fly_32.h"
+#include "assets/dactyl_glide_32.h"
 #include "assets/dino_walk_32.h"
-#include "assets/sudowoodo_32_bw.h"
-#include "assets/swablu_bw.h"
-
+#include "assets/sudowoodo_32.h"
 int score;
 u32 high_score;
 Game_State game_state;
 RECT offscreen;
 int frame_counter;
-int end_game_frame;
-int last_cheat_frame;
 int animation_frame;
-int cheat_sprite_state;
 
 void init_main(void) {
   oam_init(oam_mem, MAX_SPRITES);
 
   memcpy16(pal_obj_mem + DINO, dino_walk_32Pal, dino_walk_32PalLen / 2);
   memcpy32(*tile_mem_obj, dino_walk_32Tiles, dino_walk_32TilesLen / 4);
+  memcpy16(pal_obj_mem + DINO, dino_walk_32Pal, dino_walk_32PalLen / 2);
+  memcpy32(*tile_mem_obj, dino_walk_32Tiles, dino_walk_32TilesLen / 4);
 
   memcpy16(pal_obj_mem + CACTUS, cactus_1_32Pal, cactus_1_32PalLen / 2);
   memcpy32(*tile_mem_obj + CACTUS, cactus_1_32Tiles, cactus_1_32TilesLen / 4);
+  memcpy16(pal_obj_mem + CACTUS, cactus_1_32Pal, cactus_1_32PalLen / 2);
+  memcpy32(*tile_mem_obj + CACTUS, cactus_1_32Tiles, cactus_1_32TilesLen / 4);
 
-  memcpy16(pal_obj_mem + DACTYL, dactyl_fly_32Pal, dactyl_fly_32PalLen / 2);
-  memcpy32(*tile_mem_obj + DACTYL, dactyl_fly_32Tiles,
-           dactyl_fly_32TilesLen / 4);
+  memcpy16(pal_obj_mem + DACTYL, dactyl_glide_32Pal, dactyl_glide_32PalLen / 2);
+  memcpy32(*tile_mem_obj + DACTYL, dactyl_glide_32Tiles,
+           dactyl_glide_32TilesLen / 4);
 
   memcpy16(pal_obj_mem + CLOUD, cloud_32Pal, cloud_32PalLen / 2);
   memcpy32(*tile_mem_obj + CLOUD, cloud_32Tiles, cloud_32TilesLen / 4);
 
-  memcpy16(pal_obj_mem + BIPLUP, biplup_walk_32_bwPal,
-           biplup_walk_32_bwPalLen / 2);
-  memcpy32(*tile_mem_obj + BIPLUP, biplup_walk_32_bwTiles,
-           biplup_walk_32_bwTilesLen / 4);
+  memcpy16(pal_obj_mem + BIPLUP, biplup_walk_32Pal, biplup_walk_32PalLen / 2);
+  memcpy32(*tile_mem_obj + BIPLUP, biplup_walk_32Tiles,
+           biplup_walk_32TilesLen / 4);
 
-  memcpy16(pal_obj_mem + SUDOWOODO, sudowoodo_32_bwPal,
-           sudowoodo_32_bwPalLen / 2);
-  memcpy32(*tile_mem_obj + SUDOWOODO, sudowoodo_32_bwTiles,
-           sudowoodo_32_bwTilesLen / 4);
+  memcpy16(pal_obj_mem + SUDOWOODO, sudowoodo_32Pal, sudowoodo_32PalLen / 2);
+  memcpy32(*tile_mem_obj + SUDOWOODO, sudowoodo_32Tiles,
+           sudowoodo_32TilesLen / 4);
 
-  memcpy16(pal_obj_mem + AERODACTYL, aero_fly_32_bwPal,
-           aero_fly_32_bwPalLen / 2);
-  memcpy32(*tile_mem_obj + AERODACTYL, aero_fly_32_bwTiles,
-           aero_fly_32_bwTilesLen / 4);
-
-  memcpy16(pal_obj_mem + SWABLU, swablu_bwPal, swablu_bwPalLen / 2);
-  memcpy32(*tile_mem_obj + SWABLU, swablu_bwTiles, swablu_bwTilesLen / 4);
+  memcpy16(pal_obj_mem + AERODACTYL, aero_fly_32Pal, aero_fly_32PalLen / 2);
+  memcpy32(*tile_mem_obj + AERODACTYL, aero_fly_32Tiles,
+           aero_fly_32TilesLen / 4);
 
   memcpy16(pal_bg_mem, bg_with_roadPal, bg_with_roadPalLen / 2);
   memcpy32(tile_mem[0], bg_with_roadTiles, bg_with_roadTilesLen / 4);
@@ -73,23 +65,14 @@ void init_main(void) {
   high_score = retrieve_high_score();
   game_state = PRE_GAME;
   frame_counter = 1;
-  end_game_frame = 0;
-  last_cheat_frame = 0;
   animation_frame = 0;
-  cheat_sprite_state = 0;
-  text_init();
+  score_init();
   start_text();
 }
 
 void reset_game_state(void) {
   game_state = GAME;
   frame_counter = 1;
-  end_game_frame = 0;
-  last_cheat_frame = 0;
-  if ((u32)score > high_score) {
-    high_score = (u32)score;
-  }
-  save_high_score();
   animation_frame = 0;
   score = 0;
 }

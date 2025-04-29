@@ -28,13 +28,11 @@ sources = [
   'src/assets/blob.s',
   'src/assets/cactus_1_32.s',
   'src/assets/dino_walk_32.s',
-  'src/assets/dactyl_fly_32.s',
+  'src/assets/dactyl_glide_32.s',
   'src/assets/cloud_32.s',
   'src/assets/biplup_walk_32.s',
-  'src/assets/biplup_walk_32_bw.s',
-  'src/assets/sudowoodo_32_bw.s',
-  'src/assets/aero_fly_32_bw.s',
-  'src/assets/swablu_bw.s',
+  'src/assets/sudowoodo_32.s',
+  'src/assets/aero_fly_32.s',
   'src/assets/bg_with_road.s'
 ]
 
