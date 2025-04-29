@@ -13,6 +13,7 @@
 extern Game_State game_state;
 extern int frame_counter;
 extern int end_game_frame;
+extern int last_cheat_frame;
 
 int main(void) {
   // initialize key variables and GBA screen
@@ -77,7 +78,7 @@ int main(void) {
       // allow each object to move, spawn, or wait
       update_obstacles(obstacles);
 
-      animation(player->obj_args, frame_counter, BIPLUP);
+      animation(player->obj_args, frame_counter);
 
       // check if the player is colliding with each object
       if (!check_player_collision(player, obstacles)) {
