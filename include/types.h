@@ -15,7 +15,7 @@
 typedef enum { PRE_GAME = 0, GAME = 1, POST_GAME = 2 } Game_State;
 
 // Enumeration of each possible sprite in the game
-enum {
+typedef enum {
   DINO = 0,
   CACTUS = 32,
   DACTYL = 48,
