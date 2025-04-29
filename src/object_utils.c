@@ -7,7 +7,7 @@
 
 extern RECT offscreen;
 extern int frame_counter;
-extern int animation_dino_frame;
+extern int animation_frame;
 
 void object_constructor(Object *obj, int obj_counter, float x, float y,
                         int tile_number) {
@@ -18,7 +18,7 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
 
   obj->attr->attr0 =
       ATTR0_Y((int)obj->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
-  obj->attr->attr1 = ATTR1_X((int)obj->x) | ATTR1_SIZE_16x16;
+  obj->attr->attr1 = ATTR1_X((int)obj->x) | ATTR1_SIZE_32x32;
   obj->attr->attr2 = ATTR2_ID(tile_number) | ATTR2_PRIO(obj_counter) |
                      ATTR2_PALBANK(tile_number);
 
@@ -38,7 +38,7 @@ void obstacle_constructor(Obstacle *obs, int obj_counter, float y,
 }
 
 void player_constructor(Player *obj) {
-  object_constructor(obj->obj_args, 0, PLAYER_X_POS, FLOOR_LEVEL, DINO_WALK_1);
+  object_constructor(obj->obj_args, 0, PLAYER_X_POS, FLOOR_LEVEL, BIPLUP);
   obj->y_velocity = 0;
   obj->y_acceleration = PLAYER_Y_ACCEL;
 }
@@ -87,13 +87,13 @@ bool check_obj_overlap(const Object *obj1, const Object *obj2) {
   // features of object 1
   int obj1_x = obj1->x;
   int obj1_y = obj1->y;
-  int obj1_width = obj_get_width(obj1->attr);
+  int obj1_width = obj_get_width(obj1->attr) - HITBOX_BUFFER;
   int obj1_height = obj_get_height(obj1->attr);
 
   // features of object 2
   int obj2_x = obj2->x;
   int obj2_y = obj2->y;
-  int obj2_width = obj_get_width(obj2->attr);
+  int obj2_width = obj_get_width(obj2->attr) - HITBOX_BUFFER;
   int obj2_height = obj_get_height(obj2->attr);
 
   // AABB collision detection
@@ -147,17 +147,15 @@ bool check_player_collision(Player *player, Obstacle **obstacles) {
   return false;
 }
 
-void dino_walk_animation(Object *dino, int frame) {
+void animation(Object *obj, int frame, int id) {
   if (frame % 7 == 1) {
-    if (animation_dino_frame == 0) {
-      dino->attr->attr2 = ATTR2_ID(DINO_WALK_1) |
-                          ATTR2_PRIO(dino->object_counter) |
-                          ATTR2_PALBANK(DINO_WALK_1);
+    if (animation_frame == 0) {
+      obj->attr->attr2 =
+          ATTR2_ID(id) | ATTR2_PRIO(obj->object_counter) | ATTR2_PALBANK(id);
     } else {
-      dino->attr->attr2 = ATTR2_ID(DINO_WALK_2) |
-                          ATTR2_PRIO(dino->object_counter) |
-                          ATTR2_PALBANK(DINO_WALK_2);
+      obj->attr->attr2 = ATTR2_ID(id + 16) | ATTR2_PRIO(obj->object_counter) |
+                         ATTR2_PALBANK(id + 16);
     }
-    animation_dino_frame = !animation_dino_frame;
+    animation_frame = !animation_frame;
   }
 }

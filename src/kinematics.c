@@ -43,7 +43,8 @@ void update_jump_state(Player *player) {
 void update_player_physics(Player *player) {
   set_player_y_velocity(player, player->y_velocity + player->y_acceleration);
   float y_temp =
-      player->obj_args->y + (player->y_velocity + 10 * player->y_acceleration);
+      player->obj_args->y +
+      (player->y_velocity + PLAYER_Y_ACCEL_MOD * player->y_acceleration);
   if (y_temp >= FLOOR_LEVEL) {
     y_temp = FLOOR_LEVEL;
     set_jump_state(player, false);

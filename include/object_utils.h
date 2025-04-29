@@ -17,18 +17,19 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define DACTYL_HEIGHT_DIFF -20 // offset dactyls from the floor height
-#define CLOUD_HEIGHT_DIFF -30  // offset clouds from the floor height
+#define DACTYL_HEIGHT_DIFF -35 // offset dactyls from the floor height
+#define CLOUD_HEIGHT_DIFF -100 // offset clouds from the floor height
 
 #define CACTUS_AMOUNT 2 // number of cacti in the game
 #define DACTYL_AMOUNT 1 // number of dactyls in the game
-#define CLOUD_AMOUNT 0  // number of clouds in the game
+#define CLOUD_AMOUNT 1  // number of clouds in the game
 #define OBSTACLE_AMOUNT                                                        \
   CACTUS_AMOUNT + DACTYL_AMOUNT +                                              \
-      CLOUD_AMOUNT // total obstacles present in the game
+      CLOUD_AMOUNT      // total obstacles present in the game
+#define HITBOX_BUFFER 8 // buffer for hitbox
 
 #define CACTUS_FRAME_SPAWN_THRESHOLD 100 // frame count before cacti respawn
-#define DACTYL_FRAME_SPAWN_THRESHOLD 250 // frame count before dactyls respawn
+#define DACTYL_FRAME_SPAWN_THRESHOLD 230 // frame count before dactyls respawn
 #define CLOUD_FRAME_SPAWN_THRESHOLD 80   // frame count before clouds respawn
 
 /**
@@ -166,4 +167,4 @@ void check_obj_offscreen(const Object *obj, RECT *dir);
  * @return A boolean indicating if the player is colliding with any obstacles.
  */
 bool check_player_collision(Player *player, Obstacle **obstacles);
-void dino_walk_animation(Object *dino, int frame);
+void animation(Object *obj, int frame, int id);
