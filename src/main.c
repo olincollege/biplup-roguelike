@@ -12,6 +12,7 @@
 
 extern Game_State game_state;
 extern int frame_counter;
+extern int end_game_frame;
 
 int main(void) {
   // initialize key variables and GBA screen
@@ -81,15 +82,17 @@ int main(void) {
         end_game();
       }
       // while loop loops is equivalent to amount of frames displayed
-      frame_counter++;
       break;
     }
     case POST_GAME: {
       end_text();
-      postgame_key_input(obstacles);
+      if (frame_counter - end_game_frame > KEY_DEBOUNCE) {
+        postgame_key_input(obstacles);
+      }
       break;
     }
     }
+    frame_counter++;
   }
   return EXIT_SUCCESS;
 }

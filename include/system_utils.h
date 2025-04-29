@@ -12,6 +12,7 @@
 #define FLOOR_LEVEL 112        // height of the floor on the screen
 #define COUNT_SCORE_ON_FRAME 5 // number of frames to pass before updating score
 #define SCORE_MILESTONE 500    // number of frames to pass before bumping speed
+#define KEY_DEBOUNCE 20        // number of frames for key debounce
 
 /**
  * Initialize memory for sprites and values for key global variables.
