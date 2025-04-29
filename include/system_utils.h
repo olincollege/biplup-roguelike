@@ -30,9 +30,9 @@ void init_main(void);
  * Reset key game variables so the game can restart.
  *
  * Reset key game variables so the game can restart, specifically:
- * score: 0
- * frame_counter: 1
- * game_state: 1
+ * -> score = 0;
+ * -> frame_counter = 1;
+ * -> game_state = 1;
  */
 void reset_game_state(void);
 

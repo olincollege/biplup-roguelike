@@ -146,8 +146,7 @@ void restart_obstacles(Obstacle **obstacles);
  * Given two object's attributes, determine whether or not the sprites are
  * colliding based on their (x,y) coordinates and sprite dimensions. Writing a
  * 1 to the result pointer indicates a collision, whereas a 0 indicates that
- * the objects are not colliding. If the result is a negative value, an error
- * has occurred.
+ * the objects are not colliding.
  *
  * @param obj1 A pointer to the first object.
  * @param obj2 A pointer to the second object.
@@ -163,7 +162,7 @@ bool check_obj_overlap(const Object *obj1, const Object *obj2);
  * describing which parts of the screen it is off from.
  *
  * @param obj1 A pointer to the  object.
- * @param dir An pointer to a dir struct with values of 1 wherever the object
+ * @param dir A pointer to a dir struct with values of 1 wherever the object
  *            is offscreen.
  */
 void check_obj_offscreen(const Object *obj, RECT *dir);

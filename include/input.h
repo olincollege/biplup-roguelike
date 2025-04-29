@@ -17,7 +17,7 @@
  * Collect key input during the PREGAME state.
  *
  * Collect key input during the PREGAME state. When the up button is
- * pressed,reset the game to a score of 0, a frame count of 1, and the state
+ * pressed, reset the game to a score of 0, a frame count of 1, and the state
  * GAME.
  */
 void pregame_key_input();
