@@ -44,3 +44,5 @@ void game_key_input(Player *player);
  * reset.
  */
 void postgame_key_input(Obstacle **obstacles);
+
+void cheat_key_input(Player *player, Obstacle **obstacles);

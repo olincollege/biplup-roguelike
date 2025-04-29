@@ -180,4 +180,11 @@ void check_obj_offscreen(const Object *obj, RECT *dir);
  * @return A boolean indicating if the player is colliding with any obstacles.
  */
 bool check_player_collision(Player *player, Obstacle **obstacles);
-void animation(Object *obj, int frame, int id);
+
+void cheat_toggle_pokemon(Player *player, Obstacle **obstacles);
+
+void animation(Object *obj, int frame);
+
+void change_sprite(Object *obj, int id);
+
+Sprite_ID get_sprite_id(Object *obj);

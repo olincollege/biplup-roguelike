@@ -30,3 +30,10 @@ void postgame_key_input(Obstacle **obstacles) {
     restart_obstacles(obstacles);
   }
 }
+
+void cheat_key_input(Player *player, Obstacle **obstacles) {
+  key_poll();
+  if (key_is_down(KEY_RIGHT)) {
+    cheat_toggle_pokemon(player, obstacles);
+  }
+}
