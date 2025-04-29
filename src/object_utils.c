@@ -201,10 +201,9 @@ void animation(Object *obj, int frame) {
     } else {
       change_sprite(obj, get_sprite_id(obj) + 16);
     }
-    animation_frame = !animation_frame;
   }
 }
 
 Sprite_ID get_sprite_id(Object *obj) {
-  return obj->default_sprite + 80 * cheat_sprite_state;
+  return obj->default_sprite + 96 * cheat_sprite_state;
 }
