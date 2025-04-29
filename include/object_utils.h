@@ -18,7 +18,7 @@
 #include <stdint.h>
 
 #define DACTYL_HEIGHT_DIFF -35 // offset dactyls from the floor height
-#define CLOUD_HEIGHT_DIFF -100 // offset clouds from the floor height
+#define CLOUD_HEIGHT_DIFF -110 // offset clouds from the floor height
 
 #define CACTUS_AMOUNT 2 // number of cacti in the game
 #define DACTYL_AMOUNT 1 // number of dactyls in the game
