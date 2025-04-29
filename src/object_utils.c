@@ -7,6 +7,7 @@
 
 extern RECT offscreen;
 extern int frame_counter;
+extern int score;
 extern int animation_frame;
 
 void object_constructor(Object *obj, int obj_counter, float x, float y,
@@ -26,15 +27,15 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
   update_obj_y(obj);
 }
 
-void obstacle_constructor(Obstacle *obs, int obj_counter, float y,
-                          int frame_spawn_threshold, int tile_number) {
-  object_constructor(obs->obj_args, obj_counter,
+void obstacle_constructor(Obstacle *obj, int obj_counter, float y,
+                          float x_velocity, int frame_spawn_threshold,
+                          int tile_number) {
+  object_constructor(obj->obj_args, obj_counter,
                      SCREEN_WIDTH + OFFSCREEN_OFFSET, y, tile_number);
-
-  obs->is_active = false;
-  obs->x_velocity = 0;
-  obs->frame_spawn_threshold = frame_spawn_threshold;
-  despawn(obs);
+  obj->is_active = false;
+  obj->x_velocity = x_velocity;
+  obj->frame_spawn_threshold = frame_spawn_threshold;
+  despawn(obj);
 }
 
 void player_constructor(Player *obj) {
@@ -53,26 +54,49 @@ void spawn(Obstacle *obs) {
   obs->is_active = true;
 }
 
-void update_obstacle(Obstacle *obs) {
-  // if object is moving
-  if (obs->is_active) {
-    // if the object is offscreen, make sure it is hidden
-    check_obj_offscreen(obs->obj_args, &offscreen);
-    if (offscreen.left) {
-      despawn(obs);
+void update_obstacles(Obstacle **obstacles) {
+  for (int i = 0; i < OBSTACLE_AMOUNT; i++) {
+    // if object is moving
+    if (obstacles[i]->is_active) {
+      // if the object is offscreen, make sure it is hidden
+      check_obj_offscreen(obstacles[i]->obj_args, &offscreen);
+      if (offscreen.left) {
+        despawn(obstacles[i]);
+      }
+
+      // progress the object
+      obj_set_pos(obstacles[i]->obj_args->attr,
+                  (int)(obstacles[i]->obj_args->x + obstacles[i]->x_velocity),
+                  (int)obstacles[i]->obj_args->y);
+      update_obj_x(obstacles[i]->obj_args);
+      update_obj_y(obstacles[i]->obj_args);
+
+      // if object is waiting to spawn
+    } else if (frame_counter % obstacles[i]->frame_spawn_threshold == 0) {
+      spawn(obstacles[i]);
+      reset_obstacle_position(obstacles[i]);
     }
+  }
+  // if the score is a multiple of 500, the obstacles should speed up
+  if (score % SCORE_MILESTONE == 0) {
+    update_obstacle_velocities(obstacles);
+  }
+}
 
-    // progress the object
-    obj_set_pos(obs->obj_args->attr,
-                (int)(obs->obj_args->x - OBSTACLE_X_VELOCITY),
-                (int)obs->obj_args->y);
-    update_obj_x(obs->obj_args);
-    update_obj_y(obs->obj_args);
+void update_obstacle_velocities(Obstacle **obstacles) {
+  for (int i = 0; i < OBSTACLE_AMOUNT; i++) {
+    // check to see if its a dactyl or if its a cactus
+    bool is_dactyl =
+        obstacles[i]->obj_args->y == FLOOR_LEVEL + DACTYL_HEIGHT_DIFF;
+    // determine multiplier based on how long your run is
+    float vel_multiplier = (((float)(score / SCORE_MILESTONE)) / 10.0);
 
-    // if object is waiting to spawn
-  } else if (frame_counter % obs->frame_spawn_threshold == 0) {
-    spawn(obs);
-    reset_obstacle_position(obs);
+    float base_obstacle_velocity =
+        (is_dactyl) ? DACTYL_BASE_X_VELOCITY : CACTI_BASE_X_VELOCITY;
+
+    float new_obstacle_vel = base_obstacle_velocity * (1 + vel_multiplier);
+
+    set_obstacle_x_velocity(obstacles[i], new_obstacle_vel);
   }
 }
 

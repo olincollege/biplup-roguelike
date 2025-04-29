@@ -28,22 +28,24 @@ int main(void) {
   dactyl->obj_args = &(Object){0};
 
   obstacle_constructor(dactyl, 1, FLOOR_LEVEL + DACTYL_HEIGHT_DIFF,
-                       DACTYL_FRAME_SPAWN_THRESHOLD, AERODACTYL);
+                       DACTYL_BASE_X_VELOCITY, DACTYL_FRAME_SPAWN_THRESHOLD,
+                       DACTYL);
   Obstacle *cactus_1 = &(Obstacle){0};
   cactus_1->obj_args = &(Object){0};
 
-  obstacle_constructor(cactus_1, 2, FLOOR_LEVEL, CACTUS_FRAME_SPAWN_THRESHOLD,
-                       CACTUS);
+  obstacle_constructor(cactus_1, 2, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
+                       CACTUS_FRAME_SPAWN_THRESHOLD, CACTUS);
 
   Obstacle *cactus_2 = &(Obstacle){0};
   cactus_2->obj_args = &(Object){0};
-  obstacle_constructor(cactus_2, 3, FLOOR_LEVEL,
-                       CACTUS_FRAME_SPAWN_THRESHOLD * 2, SUDOWOODO);
+  obstacle_constructor(cactus_2, 3, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
+                       CACTUS_FRAME_SPAWN_THRESHOLD * 2, CACTUS);
 
   Obstacle *cloud = &(Obstacle){0};
   cloud->obj_args = &(Object){0};
   obstacle_constructor(cloud, 4, FLOOR_LEVEL + CLOUD_HEIGHT_DIFF,
-                       CLOUD_FRAME_SPAWN_THRESHOLD * 2, CLOUD);
+                       CLOUD_BASE_X_VELOCITY, CLOUD_FRAME_SPAWN_THRESHOLD * 2,
+                       CLOUD);
 
   Obstacle *obstacles[OBSTACLE_AMOUNT] = {dactyl, cactus_1, cactus_2, cloud};
 
@@ -64,9 +66,7 @@ int main(void) {
       update_player_physics(player);
 
       // allow each object to move, spawn, or wait
-      for (int i = 0; i < OBSTACLE_AMOUNT; i++) {
-        update_obstacle(obstacles[i]);
-      }
+      update_obstacles(obstacles);
 
       animation(player->obj_args, frame_counter, BIPLUP);
 

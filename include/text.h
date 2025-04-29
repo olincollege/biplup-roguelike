@@ -15,12 +15,35 @@
 #define CENTRAL_TEXT_X 50 // x position of start and end text
 #define CENTRAL_TEXT_Y 50 // y position of start and end text
 
+/**
+ * Display endgame text when the player loses.
+ *
+ * Erase the screen. Then write text to the tte buffer that displays the
+ * player's high score and prompt them to restart.
+ */
 void end_text(void);
 
+/**
+ * Display pregame text when the game starts.
+ *
+ * Erase the screen. Then write text to the tte buffer that prompts them to
+ * start playing.
+ */
 void start_text(void);
 
-void score_init(void);
+/**
+ * Initialize default displays for all in-game text.
+ */
+void text_init(void);
 
+/**
+ * Update and display the player's current score.
+ *
+ * Erase the screen. Then update and display the current score and high score.
+ */
 void score_update(void);
 
+/**
+ * Erase the screen.
+ */
 void erase_screen(void);
