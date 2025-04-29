@@ -13,8 +13,6 @@
 extern Game_State game_state;
 extern int frame_counter;
 extern int end_game_frame;
-extern int last_cheat_frame;
-extern int animation_frame;
 
 int main(void) {
   // initialize key variables and GBA screen

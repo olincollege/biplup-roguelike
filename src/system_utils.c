@@ -17,6 +17,7 @@ u32 high_score;
 Game_State game_state;
 RECT offscreen;
 int frame_counter;
+int end_game_frame;
 int animation_frame;
 
 void init_main(void) {
@@ -65,6 +66,7 @@ void init_main(void) {
   high_score = retrieve_high_score();
   game_state = PRE_GAME;
   frame_counter = 1;
+  end_game_frame = 0;
   animation_frame = 0;
   score_init();
   start_text();
@@ -73,6 +75,11 @@ void init_main(void) {
 void reset_game_state(void) {
   game_state = GAME;
   frame_counter = 1;
+  end_game_frame = 0;
+  if ((u32)score > high_score) {
+    high_score = (u32)score;
+  }
+  save_high_score();
   animation_frame = 0;
   score = 0;
 }
