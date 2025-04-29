@@ -15,7 +15,7 @@
 typedef enum { PRE_GAME = 0, GAME = 1, POST_GAME = 2 } Game_State;
 
 // Enumeration of each possible sprite in the game
-enum {
+typedef enum {
   DINO = 0,
   CACTUS = 32,
   DACTYL = 48,
@@ -25,7 +25,7 @@ enum {
   AERODACTYL = 128,
   SWABLU = 8,
   BLOB = 9,
-};
+} Sprite_ID;
 
 /**
  * The Object struct, which contains a libtonc OBJ_ATTR field and several
@@ -38,6 +38,8 @@ typedef struct object_t {
   int object_counter; // the global index of this object
   float x;            // x position
   float y;            // y position
+  int default_sprite; // default sprite state of object in dino mode (if has
+                      // animation is first frame)
 } Object;
 
 /**

@@ -18,7 +18,9 @@ Game_State game_state;
 RECT offscreen;
 int frame_counter;
 int end_game_frame;
+int last_cheat_frame;
 int animation_frame;
+int cheat_sprite_state;
 
 void init_main(void) {
   oam_init(oam_mem, MAX_SPRITES);
@@ -63,7 +65,9 @@ void init_main(void) {
   game_state = PRE_GAME;
   frame_counter = 1;
   end_game_frame = 0;
+  last_cheat_frame = 0;
   animation_frame = 0;
+  cheat_sprite_state = 0;
   text_init();
   start_text();
 }
@@ -72,6 +76,7 @@ void reset_game_state(void) {
   game_state = GAME;
   frame_counter = 1;
   end_game_frame = 0;
+  last_cheat_frame = 0;
   if ((u32)score > high_score) {
     high_score = (u32)score;
   }
