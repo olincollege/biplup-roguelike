@@ -23,6 +23,13 @@ enum {
   BIPLUP = 80,
   SUDOWOODO = 112,
   AERODACTYL = 128,
+  DINO = 0,
+  CACTUS = 32,
+  DACTYL = 48,
+  CLOUD = 64,
+  BIPLUP = 80,
+  SUDOWOODO = 112,
+  AERODACTYL = 128,
   SWABLU = 8,
   BLOB = 9,
 } Sprite_ID;

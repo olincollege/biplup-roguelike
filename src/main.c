@@ -13,8 +13,6 @@
 extern Game_State game_state;
 extern int frame_counter;
 extern int end_game_frame;
-extern int last_cheat_frame;
-extern int animation_frame;
 
 int main(void) {
   // initialize key variables and GBA screen
@@ -29,30 +27,26 @@ int main(void) {
   // out last magic numbers in main
   Obstacle *dactyl = &(Obstacle){0};
   dactyl->obj_args = &(Object){0};
-  Obstacle *dactyl = &(Obstacle){0};
-  dactyl->obj_args = &(Object){0};
 
   obstacle_constructor(dactyl, 1, FLOOR_LEVEL + DACTYL_HEIGHT_DIFF,
-                       DACTYL_FRAME_SPAWN_THRESHOLD, AERODACTYL);
-  Obstacle *cactus_1 = &(Obstacle){0};
-  cactus_1->obj_args = &(Object){0};
-  obstacle_constructor(dactyl, 1, FLOOR_LEVEL + DACTYL_HEIGHT_DIFF,
-                       DACTYL_FRAME_SPAWN_THRESHOLD, AERODACTYL);
+                       DACTYL_BASE_X_VELOCITY, DACTYL_FRAME_SPAWN_THRESHOLD,
+                       DACTYL);
   Obstacle *cactus_1 = &(Obstacle){0};
   cactus_1->obj_args = &(Object){0};
 
-  obstacle_constructor(cactus_1, 2, FLOOR_LEVEL, CACTUS_FRAME_SPAWN_THRESHOLD,
-                       CACTUS);
+  obstacle_constructor(cactus_1, 2, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
+                       CACTUS_FRAME_SPAWN_THRESHOLD, CACTUS);
 
   Obstacle *cactus_2 = &(Obstacle){0};
   cactus_2->obj_args = &(Object){0};
-  obstacle_constructor(cactus_2, 3, FLOOR_LEVEL,
-                       CACTUS_FRAME_SPAWN_THRESHOLD * 2, SUDOWOODO);
+  obstacle_constructor(cactus_2, 3, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
+                       CACTUS_FRAME_SPAWN_THRESHOLD * 2, CACTUS);
 
   Obstacle *cloud = &(Obstacle){0};
   cloud->obj_args = &(Object){0};
   obstacle_constructor(cloud, 4, FLOOR_LEVEL + CLOUD_HEIGHT_DIFF,
-                       CLOUD_FRAME_SPAWN_THRESHOLD * 2, CLOUD);
+                       CLOUD_BASE_X_VELOCITY, CLOUD_FRAME_SPAWN_THRESHOLD * 2,
+                       CLOUD);
 
   Obstacle *obstacles[OBSTACLE_AMOUNT] = {dactyl, cactus_1, cactus_2, cloud};
 
@@ -80,6 +74,7 @@ int main(void) {
       update_obstacles(obstacles);
 
       animation(player->obj_args, frame_counter, BIPLUP);
+      animation(player->obj_args, frame_counter, BIPLUP);
 
       // check if the player is colliding with each object
       if (!check_player_collision(player, obstacles)) {
@@ -99,9 +94,13 @@ int main(void) {
       if (frame_counter - end_game_frame > KEY_DEBOUNCE) {
         postgame_key_input(obstacles);
       }
+      if (frame_counter - end_game_frame > KEY_DEBOUNCE) {
+        postgame_key_input(obstacles);
+      }
       break;
     }
     }
+    frame_counter++;
     frame_counter++;
   }
   return EXIT_SUCCESS;
