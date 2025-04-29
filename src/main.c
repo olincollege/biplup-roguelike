@@ -24,25 +24,30 @@ int main(void) {
 
   // my obstacles :) TODO: wrap into for loops per obstacle type, which clears
   // out last magic numbers in main
-  Obstacle *above_blob = &(Obstacle){0};
-  above_blob->obj_args = &(Object){0};
+  Obstacle *dactyl = &(Obstacle){0};
+  dactyl->obj_args = &(Object){0};
 
-  obstacle_constructor(above_blob, 1, FLOOR_LEVEL + DACTYL_HEIGHT_DIFF,
+  obstacle_constructor(dactyl, 1, FLOOR_LEVEL + DACTYL_HEIGHT_DIFF,
                        DACTYL_BASE_X_VELOCITY, DACTYL_FRAME_SPAWN_THRESHOLD,
                        DACTYL);
-  Obstacle *middle_blob_1 = &(Obstacle){0};
-  middle_blob_1->obj_args = &(Object){0};
+  Obstacle *cactus_1 = &(Obstacle){0};
+  cactus_1->obj_args = &(Object){0};
 
-  obstacle_constructor(middle_blob_1, 2, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
+  obstacle_constructor(cactus_1, 2, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
                        CACTUS_FRAME_SPAWN_THRESHOLD, CACTUS);
 
-  Obstacle *middle_blob_2 = &(Obstacle){0};
-  middle_blob_2->obj_args = &(Object){0};
-  obstacle_constructor(middle_blob_2, 3, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
+  Obstacle *cactus_2 = &(Obstacle){0};
+  cactus_2->obj_args = &(Object){0};
+  obstacle_constructor(cactus_2, 3, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
                        CACTUS_FRAME_SPAWN_THRESHOLD * 2, CACTUS);
 
-  Obstacle *obstacles[OBSTACLE_AMOUNT] = {above_blob, middle_blob_1,
-                                          middle_blob_2};
+  Obstacle *cloud = &(Obstacle){0};
+  cloud->obj_args = &(Object){0};
+  obstacle_constructor(cloud, 4, FLOOR_LEVEL + CLOUD_HEIGHT_DIFF,
+                       CLOUD_BASE_X_VELOCITY, CLOUD_FRAME_SPAWN_THRESHOLD * 2,
+                       CLOUD);
+
+  Obstacle *obstacles[OBSTACLE_AMOUNT] = {dactyl, cactus_1, cactus_2, cloud};
 
   while (true) {
     // sync up the video
@@ -63,7 +68,7 @@ int main(void) {
       // allow each object to move, spawn, or wait
       update_obstacles(obstacles);
 
-      dino_walk_animation(player->obj_args, frame_counter);
+      animation(player->obj_args, frame_counter, BIPLUP);
 
       // check if the player is colliding with each object
       if (!check_player_collision(player, obstacles)) {

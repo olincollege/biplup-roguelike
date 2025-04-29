@@ -16,14 +16,13 @@ typedef enum { PRE_GAME = 0, GAME = 1, POST_GAME = 2 } Game_State;
 
 // Enumeration of each possible sprite in the game
 enum {
-  DINO_WALK_1 = 0,
-  DINO_WALK_2 = 4,
-  CACTUS = 8,
-  DACTYL = 12,
-  CLOUD = 4,
-  PIPLUP = 5,
-  SUDOWOODO = 6,
-  AERODACTYL = 7,
+  DINO = 0,
+  CACTUS = 32,
+  DACTYL = 48,
+  CLOUD = 64,
+  BIPLUP = 80,
+  SUDOWOODO = 112,
+  AERODACTYL = 128,
   SWABLU = 8,
   BLOB = 9,
 };
