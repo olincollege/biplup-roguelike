@@ -12,6 +12,8 @@
 
 extern Game_State game_state;
 extern int frame_counter;
+extern int end_game_frame;
+extern int last_cheat_frame;
 
 int main(void) {
   // initialize key variables and GBA screen
@@ -52,6 +54,9 @@ int main(void) {
   while (true) {
     // sync up the video
     vid_vsync();
+    if (frame_counter - last_cheat_frame > KEY_DEBOUNCE) {
+      cheat_key_input(player, obstacles);
+    }
 
     // the whole game is wrapped into a switch-case based on game state
     switch (game_state) {
@@ -63,12 +68,13 @@ int main(void) {
 
       // receive player input and update physics
       game_key_input(player);
+      // check for cheat state
       update_player_physics(player);
 
       // allow each object to move, spawn, or wait
       update_obstacles(obstacles);
 
-      animation(player->obj_args, frame_counter, BIPLUP);
+      animation(player->obj_args, frame_counter);
 
       // check if the player is colliding with each object
       if (!check_player_collision(player, obstacles)) {
@@ -81,15 +87,17 @@ int main(void) {
         end_game();
       }
       // while loop loops is equivalent to amount of frames displayed
-      frame_counter++;
       break;
     }
     case POST_GAME: {
       end_text();
-      postgame_key_input(obstacles);
+      if (frame_counter - end_game_frame > KEY_DEBOUNCE) {
+        postgame_key_input(obstacles);
+      }
       break;
     }
     }
+    frame_counter++;
   }
   return EXIT_SUCCESS;
 }
