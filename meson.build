@@ -43,6 +43,18 @@ includes = [
   'include',
 ]
 
+test_sources = [
+  'tests/test_executable.c',
+  'src/object_utils.c',
+  'src/kinematics.c',
+  'src/system_utils.c',
+]
+
+test_includes = [
+  'include',
+  'test_include'
+]
+
 # Dependencies. gba-meson provides a large number of GBA development libraries.
 # Check them out and add the ones you want to use to this list.
 dependencies = [
@@ -60,6 +72,14 @@ elf = executable(
   name_suffix: 'elf'
 )
 
+test_elf = executable(
+   'unit_tests',
+   test_sources,
+   include_directories: test_includes,
+   dependencies: dependencies,
+   name_suffix: 'elf'
+)
+
 # Get the 'makerom' program from sdk-seven.
 makerom = find_program('makerom')
 
@@ -68,6 +88,14 @@ rom = custom_target(
   name + '-rom',
   input: elf,
   output: name + '.gba',
+  command: [makerom, '@INPUT@', '@OUTPUT@'],
+  build_by_default: true
+)
+
+test_rom = custom_target(
+  'test-rom',
+  input: test_elf,
+  output: 'unit_tests.gba',
   command: [makerom, '@INPUT@', '@OUTPUT@'],
   build_by_default: true
 )
