@@ -19,15 +19,15 @@
  * Display endgame text when the player loses.
  *
  * Erase the screen. Then write text to the tte buffer that displays the
- * player's high score and prompt them to restart.
+ * player's ending score and prompt them to restart.
  */
 void end_text(void);
 
 /**
  * Display pregame text when the game starts.
  *
- * Erase the screen. Then write text to the tte buffer that prompts them to
- * start playing.
+ * Erase the screen. Then write text to the tte buffer that prompts the player
+ * to start playing.
  */
 void start_text(void);
 
