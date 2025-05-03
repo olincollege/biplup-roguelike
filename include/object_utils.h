@@ -70,7 +70,7 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
 
 void obstacle_constructor(Obstacle *obs, int obj_counter, float y,
                           float x_velocity, int frame_spawn_threshold,
-                          int tile_number);
+                          Sprite_ID tile_number);
 
 /**
  * Construct a player.
