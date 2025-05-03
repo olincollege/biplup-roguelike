@@ -43,6 +43,7 @@ void obstacle_constructor(Obstacle *obs, int obj_counter, float y,
 
 void player_constructor(Player *obj) {
   object_constructor(obj->obj_args, 0, PLAYER_X_POS, FLOOR_LEVEL, DINO);
+  obj->jumping = false;
   obj->y_velocity = 0;
   obj->y_acceleration = PLAYER_Y_ACCEL;
 }
