@@ -1,6 +1,14 @@
 #pragma once
 
 #include <stdbool.h>
+#include "tonc.h"
+
+/**
+ * Sets test_input to the inputed key.
+ *
+ * @param input unsigned 32-bit integer representing simulated key press
+ */
+void set_test_input(u32 input);
 
 /**
  * Function: pregame_key_input
