@@ -3,6 +3,12 @@
 A recreation of the offline dinosaur game made for the GBA, with a pokemon
 twist.
 
+## Looking To Just Run The Game?
+
+The GBA ROM is available in Releases. You can download it from there and install an emulator to play it. Recommended emulator is [mGBA](https://mgba.io/downloads.html).
+
+## How to Develop / Compile from Source
+
 ## What's Included
 
 Libraries and tools can be accessed using the [`dependency`][meson-dependency]
@@ -318,7 +324,7 @@ PATH and recreating the DEVKITARM path variable, as shown above.
 Then run:
 
 ```sh
-meson setup --cross-file=dkarm.ini --wipe --reconfigure build
+meson setup --cross-file=dkarm.ini build
 ```
 
 for the setup step.
@@ -332,6 +338,15 @@ ninja -C build
 The built ROMs (.elf, .gba) will be in the `build` directory. For WSL users, it
 may be difficult finding where your GBA ROM is in relation to mGBA. It should be
 in `\\wsl.localhost\<distro>\path\to\biplup-roguelike\build`.
+
+## Running Multiple Times
+
+Run this command after you have already built it once:
+```sh
+meson setup --cross-file=dkarm.ini --wipe --reconfigure build && ninja -C build
+```
+
+This should clear any build files in your build folder and should completely reconfigure your project.
 
 ## Emulator
 
