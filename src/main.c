@@ -28,26 +28,27 @@ int main(void) {
   // my obstacles :0
   Obstacle *dactyl = &(Obstacle){0};
   dactyl->obj_args = &(Object){0};
+
   obstacle_constructor(dactyl, 1, FLOOR_LEVEL + DACTYL_HEIGHT_DIFF,
                        DACTYL_BASE_X_VELOCITY, DACTYL_FRAME_SPAWN_THRESHOLD,
                        DACTYL);
 
   Obstacle *cactus_1 = &(Obstacle){0};
   cactus_1->obj_args = &(Object){0};
+
   obstacle_constructor(cactus_1, 2, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
                        CACTUS_FRAME_SPAWN_THRESHOLD, CACTUS);
 
   Obstacle *cactus_2 = &(Obstacle){0};
   cactus_2->obj_args = &(Object){0};
-  obstacle_constructor(cactus_2, 3, FLOOR_LEVEL,
-                       CACTUS_FRAME_SPAWN_THRESHOLD * 2,
-                       CACTUS_FRAME_SPAWN_THRESHOLD, CACTUS);
+  obstacle_constructor(cactus_2, 3, FLOOR_LEVEL, CACTI_BASE_X_VELOCITY,
+                       CACTUS_FRAME_SPAWN_THRESHOLD * 2, CACTUS);
 
   Obstacle *cloud = &(Obstacle){0};
   cloud->obj_args = &(Object){0};
   obstacle_constructor(cloud, 4, FLOOR_LEVEL + CLOUD_HEIGHT_DIFF,
-                       CLOUD_FRAME_SPAWN_THRESHOLD * 2,
-                       CLOUD_FRAME_SPAWN_THRESHOLD, CLOUD);
+                       CLOUD_BASE_X_VELOCITY, CLOUD_FRAME_SPAWN_THRESHOLD * 2,
+                       CLOUD);
 
   Obstacle *obstacles[OBSTACLE_AMOUNT] = {dactyl, cactus_1, cactus_2, cloud};
 

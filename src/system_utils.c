@@ -1,7 +1,9 @@
 #include "system_utils.h"
+
 #include "text.h"
-#include "tonc.h"
 #include "types.h"
+
+#include "tonc.h"
 
 #include "assets/aero_fly_32_bw.h"
 #include "assets/bg_with_road.h"
@@ -24,6 +26,7 @@ int end_game_frame;
 int last_cheat_frame;
 int animation_frame;
 int cheat_sprite_state;
+u32 test_input = 0;
 
 void init_main(void) {
   oam_init(oam_mem, MAX_SPRITES);
@@ -108,20 +111,20 @@ void end_game(void) {
 }
 
 u32 retrieve_high_score(void) {
-  int total_size = 4;
-  vu8 byte_parts_of_data[] = {0, 0, 0, 0};
-  for (int i = 0; i < total_size; i++) {
-    byte_parts_of_data[i] = ((vu8 *)MEM_SRAM)[i];
-  }
+  // int total_size = 4;
+  // vu8 byte_parts_of_data[] = {0, 0, 0, 0};
+  // for (int i = 0; i < total_size; i++) {
+  //   byte_parts_of_data[i] = ((vu8 *)MEM_SRAM)[i];
+  // }
 
   // u32 high_score_num = 0;
   // u32 high_score_num = 0;
-  vu32 building_high_score = 0;
+  // vu32 building_high_score = 0;
 
-  for (int i = 0; i < total_size; i++) {
-    building_high_score |= byte_parts_of_data[i]
-                           << (((total_size - 1) - i) * 8);
-  }
+  // for (int i = 0; i < total_size; i++) {
+  //   building_high_score |= byte_parts_of_data[i]
+  //                          << (((total_size - 1) - i) * 8);
+  // }
 
   // high_score_num = (u32)building_high_score;
   // high_score_num = (u32)building_high_score;
@@ -130,15 +133,15 @@ u32 retrieve_high_score(void) {
 }
 
 void save_high_score(void) {
-  vu32 high_score_num = (vu32)high_score;
-  vu8 byte_parts_of_data[] = {0, 0, 0, 0};
-  int total_size = 4;
+  // vu32 high_score_num = (vu32)high_score;
+  // vu8 byte_parts_of_data[] = {0, 0, 0, 0};
+  // int total_size = 4;
 
-  for (int i = 0; i < total_size; i++) {
-    byte_parts_of_data[i] = high_score_num >> (((total_size - 1) - i) * 8);
-  }
+  // for (int i = 0; i < total_size; i++) {
+  //   byte_parts_of_data[i] = high_score_num >> (((total_size - 1) - i) * 8);
+  // }
 
-  for (int i = 0; i < total_size; i++) {
-    ((vu8 *)MEM_SRAM)[i] = byte_parts_of_data[i];
-  }
+  // for (int i = 0; i < total_size; i++) {
+  //   ((vu8 *)MEM_SRAM)[i] = byte_parts_of_data[i];
+  // }
 }

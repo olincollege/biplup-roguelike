@@ -3,8 +3,10 @@
 #include "input.h"
 #include "kinematics.h"
 #include "object_utils.h"
-#include "tonc.h"
 #include "types.h"
+
+#include "tonc.h"
+
 #include <stdbool.h>
 
 extern Game_State game_state;
@@ -66,7 +68,7 @@ int test_jump_state() {
   game_state = GAME;
   Player *player = &(Player){0};
   player_constructor(player);
-  player->jumping == false;
+  player->jumping = false;
   set_test_input(KEY_UP);
   get_input(KEY_UP);
 

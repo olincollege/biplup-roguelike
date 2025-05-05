@@ -3,8 +3,10 @@
 #include "kinematics.h"
 #include "object_utils.h"
 #include "system_utils.h"
-#include "tonc.h"
 #include "types.h"
+
+#include "tonc.h"
+
 #include <stdbool.h>
 
 #include "assets/blob.h"
@@ -36,6 +38,7 @@ int test_partly_offscreen(void) {
   obj_set_attr(object->attr,
                ATTR0_Y((int)object->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG,
                ATTR1_X((int)object->x) | ATTR1_SIZE_32x32,
+               // NOLINTNEXTLINE(clang-diagnostic-constant-conversion)
                ATTR2_ID(CACTUS) | ATTR2_PRIO(1) | ATTR2_PALBANK(CACTUS));
   object->x = 240 + 16;
 
@@ -54,6 +57,7 @@ int test_left_offscreen(void) {
   obj_set_attr(object->attr,
                ATTR0_Y((int)object->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG,
                ATTR1_X((int)object->x) | ATTR1_SIZE_32x32,
+               // NOLINTNEXTLINE(clang-diagnostic-constant-conversion)
                ATTR2_ID(CACTUS) | ATTR2_PRIO(1) | ATTR2_PALBANK(CACTUS));
   object->x = -32 - 1;
 
@@ -72,6 +76,7 @@ int test_top_offscreen(void) {
   obj_set_attr(object->attr,
                ATTR0_Y((int)object->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG,
                ATTR1_X((int)object->x) | ATTR1_SIZE_32x32,
+               // NOLINTNEXTLINE(clang-diagnostic-constant-conversion)
                ATTR2_ID(CACTUS) | ATTR2_PRIO(1) | ATTR2_PALBANK(CACTUS));
   object->y = -32 - 1;
 
@@ -90,6 +95,7 @@ int test_bottom_offscreen(void) {
   obj_set_attr(object->attr,
                ATTR0_Y((int)object->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG,
                ATTR1_X((int)object->x) | ATTR1_SIZE_32x32,
+               // NOLINTNEXTLINE(clang-diagnostic-constant-conversion)
                ATTR2_ID(CACTUS) | ATTR2_PRIO(1) | ATTR2_PALBANK(CACTUS));
   object->y = 160 + 32 + 1;
   check_obj_offscreen(object, &direction);
@@ -108,6 +114,7 @@ int test_corner_top_left_offscreen(void) {
   obj_set_attr(object->attr,
                ATTR0_Y((int)object->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG,
                ATTR1_X((int)object->x) | ATTR1_SIZE_32x32,
+               // NOLINTNEXTLINE(clang-diagnostic-constant-conversion)
                ATTR2_ID(CACTUS) | ATTR2_PRIO(1) | ATTR2_PALBANK(CACTUS));
   object->x = -32 - 1;
   object->y = -32 - 1;
@@ -128,6 +135,7 @@ int test_corner_top_right_offscreen(void) {
   obj_set_attr(object->attr,
                ATTR0_Y((int)object->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG,
                ATTR1_X((int)object->x) | ATTR1_SIZE_32x32,
+               // NOLINTNEXTLINE(clang-diagnostic-constant-conversion)
                ATTR2_ID(CACTUS) | ATTR2_PRIO(1) | ATTR2_PALBANK(CACTUS));
   object->x = 240 + 32 + 1;
   object->y = -32 - 1;
@@ -148,6 +156,7 @@ int test_corner_bottom_left_offscreen(void) {
   obj_set_attr(object->attr,
                ATTR0_Y((int)object->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG,
                ATTR1_X((int)object->x) | ATTR1_SIZE_32x32,
+               // NOLINTNEXTLINE(clang-diagnostic-constant-conversion)
                ATTR2_ID(CACTUS) | ATTR2_PRIO(1) | ATTR2_PALBANK(CACTUS));
 
   object->x = -32 - 1;
@@ -169,6 +178,7 @@ int test_corner_bottom_right_offscreen(void) {
   obj_set_attr(object->attr,
                ATTR0_Y((int)object->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG,
                ATTR1_X((int)object->x) | ATTR1_SIZE_32x32,
+               // NOLINTNEXTLINE(clang-diagnostic-constant-conversion)
                ATTR2_ID(CACTUS) | ATTR2_PRIO(1) | ATTR2_PALBANK(CACTUS));
   object->x = 240 + 32 + 1;
   object->y = 160 + 32 + 1;
@@ -726,17 +736,6 @@ int test_spawn_active() {
   spawn(test_obs);
 
   return test_obs->is_active;
-}
-
-int test_right_offscreen() {
-  Object *object = &(Object){};
-  float offscreen_x = 240 + 32 + 1;
-  RECT direction;
-  object_constructor(object, 1, offscreen_x, 10.0, BLOB);
-
-  check_obj_offscreen(object, &direction);
-
-  return direction.right == 1;
 }
 
 int test_toggle_cheat_state_on() {

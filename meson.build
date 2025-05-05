@@ -1,4 +1,3 @@
-# Change these to suit your project, if you want.
 project(
   'dino-game', 'c',
   version: '0.90.0',
@@ -14,10 +13,10 @@ if get_option('dev')
   subdir_done()
 endif
 
-# The name of your project.
+# The name of the project.
 name = 'dino-game'
 
-# All of the source files used by your project.
+# All of the source files used by the project.
 sources = [
   'src/input.c',
   'src/text.c',
@@ -38,15 +37,19 @@ sources = [
   'src/assets/bg_with_road.s'
 ]
 
-# All of the include directories used by your project.
+# All of the include directories used by the project.
 includes = [
   'include',
 ]
 
+# All of the test sources used by the project.
 test_sources = [
   'tests/test_executable.c',
   'tests/test_system_utils.c',
   'tests/test_object_utils.c',
+  'tests/test_text.c',
+  'tests/test_kinematics.c',
+  'tests/test_input.c',
   'src/input.c',
   'src/text.c',
   'src/kinematics.c',
@@ -65,6 +68,7 @@ test_sources = [
   'src/assets/bg_with_road.s'
 ]
 
+# All of the test include directories used by the project.
 test_includes = [
   'include',
   'test_include'
@@ -77,7 +81,7 @@ dependencies = [
   dependency('libtonc')
 ]
 
-# The main executable for your game. We give it a '.elf' file extension,
+# The main executable for the game. We give it a '.elf' file extension,
 # just to make the file more easy to differentiate from a raw ROM.
 elf = executable(
   name,
@@ -87,6 +91,7 @@ elf = executable(
   name_suffix: 'elf'
 )
 
+# The test executable for the game.
 test_elf = executable(
    'unit_tests',
    test_sources,
@@ -98,7 +103,7 @@ test_elf = executable(
 # Get the 'makerom' program from sdk-seven.
 makerom = find_program('makerom')
 
-# Build a raw GBA ROM file from your ELF file.
+# Build a raw GBA ROM file from the ELF file.
 rom = custom_target(
   name + '-rom',
   input: elf,

@@ -1,8 +1,10 @@
 #include "test_text.h"
 
 #include "text.h"
-#include "tonc.h"
 #include "types.h"
+
+#include "tonc.h"
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -43,6 +45,7 @@ int test_score_text() {
   char test_buffer[64];
   score_update();
   snprintf(test_buffer, sizeof(test_buffer), "Score: %d\nHigh Score: %lu",
+           // NOLINTNEXTLINE(clang-diagnostic-format)
            score, high_score <= (u32)score ? (u32)score : high_score);
   tte_erase_screen();
   if (strcmp(test_buffer, score_buffer) == 0) {
