@@ -337,7 +337,7 @@ ninja -C build
 
 The built ROMs (.elf, .gba) will be in the `build` directory. For WSL users, it
 may be difficult finding where your GBA ROM is in relation to mGBA. It should be
-in `\\wsl.localhost\<distro>\path\to\biplup-roguelike\build`.
+in `\\wsl.localhost\<distro>\path\to\biplup-run\build`.
 
 ## Running Multiple Times
 
@@ -353,17 +353,9 @@ This should clear any build files in your build folder and should completely rec
 Please install [mGBA](https://mgba.io/downloads.html). It has great debugging
 tools and will make the process for developing a bit easier.
 
-## Using Meson
-
-When adding new files into `src` or `include`, make sure to add them
-corresponding to eachother and only add the new file in `src` to the list of
-sources in the outermost `meson.build`. You are allowed to encapsulate pieces of
-code that accesses regions of memory into functions as long as you then run that
-code in a singular main file. `main.c` is provided.
-
 ## License
 
-meson-gba is licensed under the zlib license. See [LICENSE.txt](./LICENSE.txt)
+biplup-run is licensed under the zlib license. See [LICENSE.txt](./LICENSE.txt)
 for more information.
 
 See the homepages of the bundled projects for their respective licensing.
