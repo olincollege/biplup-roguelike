@@ -12,7 +12,7 @@ extern int last_cheat_frame;
 extern int cheat_sprite_state;
 
 void object_constructor(Object *obj, int obj_counter, float x, float y,
-                        int tile_number) {
+                        Sprite_ID tile_number) {
   obj->object_counter = obj_counter;
   obj->attr = &oam_mem[obj_counter];
   obj->x = x;
@@ -31,19 +31,20 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
   update_obj_y(obj);
 }
 
-void obstacle_constructor(Obstacle *obj, int obj_counter, float y,
+void obstacle_constructor(Obstacle *obs, int obj_counter, float y,
                           float x_velocity, int frame_spawn_threshold,
-                          int tile_number) {
-  object_constructor(obj->obj_args, obj_counter,
+                          Sprite_ID tile_number) {
+  object_constructor(obs->obj_args, obj_counter,
                      SCREEN_WIDTH + OFFSCREEN_OFFSET, y, tile_number);
-  obj->is_active = false;
-  obj->x_velocity = x_velocity;
-  obj->frame_spawn_threshold = frame_spawn_threshold;
-  despawn(obj);
+  obs->is_active = false;
+  obs->x_velocity = x_velocity;
+  obs->frame_spawn_threshold = frame_spawn_threshold;
+  despawn(obs);
 }
 
 void player_constructor(Player *obj) {
   object_constructor(obj->obj_args, 0, PLAYER_X_POS, FLOOR_LEVEL, DINO);
+  obj->jumping = false;
   obj->y_velocity = 0;
   obj->y_acceleration = PLAYER_Y_ACCEL;
 }
