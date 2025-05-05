@@ -2,6 +2,8 @@
 
 #include <stdbool.h>
 
+#define NUM_OBJECT_UTILS_TESTS 27
+
 // Constant used for determining the difference between floats.
 #define EPSILON 0.001
 
@@ -313,3 +315,17 @@ int test_spawn_show();
  * @return 1 if the Obstacle's is_active field is set to true; 0 otherwise.
  */
 int test_spawn_active();
+
+#define OBJECT_UTILS_TESTS                                                     \
+  test_right_offscreen(), test_partly_offscreen(), test_left_offscreen(),      \
+      test_top_offscreen(), test_bottom_offscreen(),                           \
+      test_corner_bottom_left_offscreen(), test_corner_top_left_offscreen(),   \
+      test_corner_top_right_offscreen(), test_corner_bottom_right_offscreen(), \
+      test_update_moving_obstacles(), test_update_still_obstacles(),           \
+      test_velocity_milestone_1(), test_velocity_milestone_2(),                \
+      test_velocity_milestone_3(), test_velocity_milestone_4(),                \
+      test_restart_obstacles(), test_collisions(), test_no_collisions(),       \
+      test_cheat_toggle_pokemon(), test_object_constructor(),                  \
+      test_obstacle_constructor(), test_player_constructor(),                  \
+      test_despawn_hide(), test_despawn_inactive(), test_spawn_show(),         \
+      test_spawn_active(), test_toggle_cheat_state_on()

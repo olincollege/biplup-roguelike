@@ -1,7 +1,10 @@
 #pragma once
 
-#include <stdbool.h>
 #include "tonc.h"
+
+#include <stdbool.h>
+
+#define NUM_INPUT_TESTS 9
 
 /**
  * Sets test_input to the inputed key.
@@ -99,3 +102,9 @@ int test_postgame_obst_reset();
  * @return A 1 if the cheat sprite state equals 1, otherwise a 0.
  */
 int test_cheat_mode_toggle();
+
+#define INPUT_TESTS                                                            \
+  test_pregame_reset_score(), test_pregame_reset_frame(),                      \
+      test_pregame_to_game(), test_jump_state(), test_postgame_reset_score(),  \
+      test_postgame_reset_frame(), test_postgame_to_game(),                    \
+      test_postgame_obst_reset(), test_cheat_mode_toggle()

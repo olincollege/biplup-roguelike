@@ -10,18 +10,19 @@ extern const TFont sys8Font;
 // Here are some important globals
 extern int score;
 extern u32 high_score;
-char display_buffer[64];
+char display_buffer[72];
 char score_buffer[64];
 char high_score_buffer[64];
 
 void end_text(void) {
   erase_screen();
-  snprintf(display_buffer, sizeof(display_buffer),
-           "game over :(\n\n     final score: %d.\n\n    press up to restart",
-           score);
+  snprintf(
+      display_buffer, sizeof(display_buffer),
+      "game over :(\n\n       final score: %d.\n\n     press up to restart",
+      score);
 
   // Draw the text
-  tte_set_pos(60, 50);
+  tte_set_pos(70, 30);
   tte_write(display_buffer);
 }
 

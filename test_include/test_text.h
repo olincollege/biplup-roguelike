@@ -2,6 +2,8 @@
 
 #include <stdbool.h>
 
+#define NUM_TEXT_TESTS 4
+
 /**
  * Function: end_text
  *
@@ -40,3 +42,6 @@ int test_score_text();
  * @return A 1 if the score is 2, otherwise a 0.
  */
 int test_score_update();
+
+#define TEXT_TESTS                                                             \
+  test_end_text(), test_start_text(), test_score_text(), test_score_update()

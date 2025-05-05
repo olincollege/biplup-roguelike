@@ -2,6 +2,8 @@
 
 #include <stdbool.h>
 
+#define NUM_KINEMATICS_TESTS 7
+
 /**
  * Test whether reset_obstacle_position sets the obstacle's x position
  * correctly.
@@ -53,3 +55,9 @@ int test_update_jump_state_while_jumping();
  * @return 1 if the test passes (player lands and stops jumping), 0 otherwise.
  */
 int test_update_player_physics();
+
+#define KINEMATICS_TESTS                                                       \
+  test_reset_obstacle_position(), test_set_obstacle_x_velocity(),              \
+      test_set_player_y_velocity(), test_set_jump_state(),                     \
+      test_update_jump_state_starts_jump(),                                    \
+      test_update_jump_state_while_jumping(), test_update_player_physics()

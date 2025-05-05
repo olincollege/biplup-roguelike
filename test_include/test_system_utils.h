@@ -1,5 +1,7 @@
 #pragma once
 
+#define NUM_SYSTEM_UTILS_TESTS 3
+
 /**
  * function: init_main
  *
@@ -30,3 +32,6 @@ int test_reset_game_state(void);
  * @return A 1 if retrieve_high_score returns 0, otherwise a 0.
  */
 int test_retrieve_high_score(void);
+
+#define SYSTEM_UTILS_TESTS                                                     \
+  test_init_main(), test_reset_game_state(), test_retrieve_high_score()

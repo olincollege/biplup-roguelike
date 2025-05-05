@@ -9,18 +9,20 @@
 #include <stdio.h>
 #include <string.h>
 
-extern char display_buffer[64];
+extern char display_buffer[72];
 extern char score_buffer[64];
 extern int score;
 extern u32 high_score;
 
 int test_end_text() {
   score = 1;
-  char test_buffer[64];
+  char test_buffer[72];
   end_text();
   tte_erase_screen();
-  snprintf(test_buffer, sizeof(test_buffer),
-           "game over :(\nfinal score: %d.\npress up to restart", score);
+  snprintf(
+      test_buffer, sizeof(test_buffer),
+      "game over :(\n\n       final score: %d.\n\n     press up to restart",
+      score);
   if (strcmp(test_buffer, display_buffer) == 0) {
     return 1;
   }
