@@ -27,13 +27,11 @@ void set_player_y_velocity(Player *player, float y_velocity) {
   player->y_velocity = y_velocity;
 }
 
-void set_obj_y_acceleration(Player *player, float y_acceleration) {
-  player->y_acceleration = y_acceleration;
-}
-
 void set_jump_state(Player *player, bool jumping) { player->jumping = jumping; }
 
 void update_jump_state(Player *player) {
+  // if the player isn't already jumping, set player jump to true and set player
+  // y velocity to jump velocity
   if (!player->jumping) {
     set_player_y_velocity(player, PLAYER_Y_JUMP_VEL);
     set_jump_state(player, true);
@@ -41,13 +39,19 @@ void update_jump_state(Player *player) {
 }
 
 void update_player_physics(Player *player) {
+  // compute player y velocity based on kinematics
   set_player_y_velocity(player, player->y_velocity + player->y_acceleration);
+  // compute player's new y value based on kinematics
   float y_temp =
-      player->obj_args->y + (player->y_velocity + 10 * player->y_acceleration);
+      player->obj_args->y +
+      (player->y_velocity + PLAYER_Y_ACCEL_MOD * player->y_acceleration);
+  // if the new y value is on the floor or going beneath the floor, set player's
+  // y value to the floor and set player jump state to false
   if (y_temp >= FLOOR_LEVEL) {
     y_temp = FLOOR_LEVEL;
     set_jump_state(player, false);
   }
+  // set player's new position
   obj_set_pos(player->obj_args->attr, (int)player->obj_args->x, (int)y_temp);
   update_obj_x(player->obj_args);
   update_obj_y(player->obj_args);

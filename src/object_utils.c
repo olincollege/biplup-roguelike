@@ -175,6 +175,11 @@ bool check_player_collision(Player *player, Obstacle **obstacles) {
   return false;
 }
 
+Sprite_ID get_sprite_id(Object *obj) {
+  // calculates the proper sprite ID for game elements based on cheat state
+  return obj->default_sprite + CHEAT_STATE_SPRITE_DIFF * cheat_sprite_state;
+}
+
 void cheat_toggle_pokemon(Player *player, Obstacle **obstacles) {
   // update the state
   cheat_sprite_state = !cheat_sprite_state;
@@ -196,15 +201,12 @@ void change_sprite(Object *obj, int id) {
 }
 
 void animation(Object *obj, int frame) {
-  if (frame % 7 == 1) {
+  // for every 7 frames switch between animation sprites
+  if (frame % ANIMATION_FRAME_TIME == 1) {
     if (animation_frame == 0) {
       change_sprite(obj, get_sprite_id(obj));
     } else {
-      change_sprite(obj, get_sprite_id(obj) + 16);
+      change_sprite(obj, get_sprite_id(obj) + ANIMATION_SPRITE_DIFF);
     }
   }
-}
-
-Sprite_ID get_sprite_id(Object *obj) {
-  return obj->default_sprite + 96 * cheat_sprite_state;
 }

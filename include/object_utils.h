@@ -32,6 +32,12 @@
 #define DACTYL_FRAME_SPAWN_THRESHOLD 300 // frame count before dactyls respawn
 #define CLOUD_FRAME_SPAWN_THRESHOLD 80   // frame count before clouds respawn
 
+#define ANIMATION_FRAME_TIME 7 // how often animation plays
+#define CHEAT_STATE_SPRITE_DIFF                                                \
+  96 // difference in ID between standard and cheat sprites
+#define ANIMATION_SPRITE_DIFF                                                  \
+  16 // difference in ID between first and second animation in sprite
+
 /**
  * Construct a generic game object.
  *
@@ -182,10 +188,42 @@ void check_obj_offscreen(const Object *obj, RECT *dir);
  */
 bool check_player_collision(Player *player, Obstacle **obstacles);
 
+/**
+ * Get correct sprite ID for game element based on current cheat state.
+ *
+ * If cheat mode is activated, this function returns the ID for the Pokemon
+ * themed sprites. Returns standard IDs for the offline dinosaur game otherwise.
+ *
+ * @param obj A pointer to an Object.
+ * @return Sprite_ID to be displayed.
+ */
+Sprite_ID get_sprite_id(Object *obj);
+
+/**
+ * Toggle the cheat mode and update all sprites.
+ *
+ * Sets the last_cheat_frame for button debouncing.
+ *
+ * @param player Pointer to the player.
+ * @param obstacles Array of pointers to all obstacles in the game.
+ */
 void cheat_toggle_pokemon(Player *player, Obstacle **obstacles);
 
-void animation(Object *obj, int frame);
-
+/**
+ * Update the OBJ_ATTR field of an object to change its sprite.
+ *
+ * @param obj A pointer to an Object.
+ * @param id The sprite ID to apply.
+ */
 void change_sprite(Object *obj, int id);
 
-Sprite_ID get_sprite_id(Object *obj);
+/**
+ * Change the object sprite based on current animation frame.
+ *
+ * Every ANIMATION_FRAME_TIME frames, this function switches the sprite
+ * to animate it.
+ *
+ * @param obj A pointer to an Object.
+ * @param frame Current frame counter.
+ */
+void animation(Object *obj, int frame);
