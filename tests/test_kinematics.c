@@ -1,9 +1,11 @@
 #include "test_kinematics.h"
+
 #include "kinematics.h"
 #include "object_utils.h"
 #include "system_utils.h"
-#include "tonc.h"
 #include "types.h"
+
+#include "tonc.h"
 
 int test_reset_obstacle_position() {
   Obstacle *obs = &(Obstacle){0};

@@ -1,7 +1,10 @@
 #include "test_system_utils.h"
+
 #include "system_utils.h"
-#include "tonc.h"
 #include "types.h"
+
+#include "tonc.h"
+
 #include <stdbool.h>
 
 extern int score;
