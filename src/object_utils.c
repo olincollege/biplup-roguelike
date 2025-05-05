@@ -5,23 +5,25 @@
 #include "types.h"
 #include <stdbool.h>
 
+extern int score;
 extern RECT offscreen;
 extern int frame_counter;
-extern int score;
 extern int animation_frame;
 extern int last_cheat_frame;
 extern int cheat_sprite_state;
 
 void object_constructor(Object *obj, int obj_counter, float x, float y,
-                        int tile_number) {
+                        Sprite_ID tile_number) {
   obj->object_counter = obj_counter;
   obj->attr = &oam_mem[obj_counter];
   obj->x = x;
   obj->y = y;
   obj->default_sprite = tile_number;
+  obj->default_sprite = tile_number;
 
   obj->attr->attr0 =
       ATTR0_Y((int)obj->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
+  obj->attr->attr1 = ATTR1_X((int)obj->x) | ATTR1_SIZE_32x32;
   obj->attr->attr1 = ATTR1_X((int)obj->x) | ATTR1_SIZE_32x32;
   obj->attr->attr2 = ATTR2_ID(tile_number) | ATTR2_PRIO(obj_counter) |
                      ATTR2_PALBANK(tile_number);
@@ -30,19 +32,20 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
   update_obj_y(obj);
 }
 
-void obstacle_constructor(Obstacle *obj, int obj_counter, float y,
+void obstacle_constructor(Obstacle *obs, int obj_counter, float y,
                           float x_velocity, int frame_spawn_threshold,
-                          int tile_number) {
-  object_constructor(obj->obj_args, obj_counter,
+                          Sprite_ID tile_number) {
+  object_constructor(obs->obj_args, obj_counter,
                      SCREEN_WIDTH + OFFSCREEN_OFFSET, y, tile_number);
-  obj->is_active = false;
-  obj->x_velocity = x_velocity;
-  obj->frame_spawn_threshold = frame_spawn_threshold;
-  despawn(obj);
+  obs->is_active = false;
+  obs->x_velocity = x_velocity;
+  obs->frame_spawn_threshold = frame_spawn_threshold;
+  despawn(obs);
 }
 
 void player_constructor(Player *obj) {
   object_constructor(obj->obj_args, 0, PLAYER_X_POS, FLOOR_LEVEL, DINO);
+  obj->jumping = false;
   obj->y_velocity = 0;
   obj->y_acceleration = PLAYER_Y_ACCEL;
 }
@@ -174,6 +177,11 @@ bool check_player_collision(Player *player, Obstacle **obstacles) {
   return false;
 }
 
+Sprite_ID get_sprite_id(Object *obj) {
+  // calculates the proper sprite ID for game elements based on cheat state
+  return obj->default_sprite + CHEAT_STATE_SPRITE_DIFF * cheat_sprite_state;
+}
+
 void cheat_toggle_pokemon(Player *player, Obstacle **obstacles) {
   // update the state
   cheat_sprite_state = !cheat_sprite_state;
@@ -195,15 +203,12 @@ void change_sprite(Object *obj, int id) {
 }
 
 void animation(Object *obj, int frame) {
-  if (frame % 7 == 1) {
+  // for every 7 frames switch between animation sprites
+  if (frame % ANIMATION_FRAME_TIME == 1) {
     if (animation_frame == 0) {
       change_sprite(obj, get_sprite_id(obj));
     } else {
-      change_sprite(obj, get_sprite_id(obj) + 16);
+      change_sprite(obj, get_sprite_id(obj) + ANIMATION_SPRITE_DIFF);
     }
   }
-}
-
-Sprite_ID get_sprite_id(Object *obj) {
-  return obj->default_sprite + 96 * cheat_sprite_state;
 }

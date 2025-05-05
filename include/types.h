@@ -34,12 +34,12 @@ typedef enum {
  * the Obstacle struct.
  */
 typedef struct object_t {
-  OBJ_ATTR *attr;     // libtonc macro storing data in bitmap form
-  int object_counter; // the global index of this object
-  float x;            // x position
-  float y;            // y position
-  int default_sprite; // default sprite state of object in dino mode (if has
-                      // animation is first frame)
+  OBJ_ATTR *attr;           // libtonc macro storing data in bitmap form
+  int object_counter;       // the global index of this object
+  float x;                  // x position
+  float y;                  // y position
+  Sprite_ID default_sprite; // default sprite state of object in dino mode (if
+                            // has animation is first frame)
 } Object;
 
 /**
