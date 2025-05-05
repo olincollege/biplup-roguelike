@@ -30,7 +30,11 @@ void init_main(void) {
 
   memcpy16(pal_obj_mem + DINO, dino_walk_32Pal, dino_walk_32PalLen / 2);
   memcpy32(*tile_mem_obj, dino_walk_32Tiles, dino_walk_32TilesLen / 4);
+  memcpy16(pal_obj_mem + DINO, dino_walk_32Pal, dino_walk_32PalLen / 2);
+  memcpy32(*tile_mem_obj, dino_walk_32Tiles, dino_walk_32TilesLen / 4);
 
+  memcpy16(pal_obj_mem + CACTUS, cactus_1_32Pal, cactus_1_32PalLen / 2);
+  memcpy32(*tile_mem_obj + CACTUS, cactus_1_32Tiles, cactus_1_32TilesLen / 4);
   memcpy16(pal_obj_mem + CACTUS, cactus_1_32Pal, cactus_1_32PalLen / 2);
   memcpy32(*tile_mem_obj + CACTUS, cactus_1_32Tiles, cactus_1_32TilesLen / 4);
 
@@ -98,6 +102,10 @@ void end_game(void) {
   game_state = POST_GAME;
   end_game_frame = frame_counter;
 }
+void end_game(void) {
+  game_state = POST_GAME;
+  end_game_frame = frame_counter;
+}
 
 u32 retrieve_high_score(void) {
   int total_size = 4;
@@ -107,6 +115,7 @@ u32 retrieve_high_score(void) {
   }
 
   // u32 high_score_num = 0;
+  // u32 high_score_num = 0;
   vu32 building_high_score = 0;
 
   for (int i = 0; i < total_size; i++) {
@@ -114,6 +123,7 @@ u32 retrieve_high_score(void) {
                            << (((total_size - 1) - i) * 8);
   }
 
+  // high_score_num = (u32)building_high_score;
   // high_score_num = (u32)building_high_score;
 
   return 0; // returning 0 resets the game high score across resets

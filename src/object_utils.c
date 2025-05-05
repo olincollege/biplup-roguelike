@@ -7,7 +7,6 @@
 
 extern RECT offscreen;
 extern int frame_counter;
-extern int score;
 extern int animation_frame;
 extern int last_cheat_frame;
 extern int cheat_sprite_state;
@@ -19,9 +18,11 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
   obj->x = x;
   obj->y = y;
   obj->default_sprite = tile_number;
+  obj->default_sprite = tile_number;
 
   obj->attr->attr0 =
       ATTR0_Y((int)obj->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG;
+  obj->attr->attr1 = ATTR1_X((int)obj->x) | ATTR1_SIZE_32x32;
   obj->attr->attr1 = ATTR1_X((int)obj->x) | ATTR1_SIZE_32x32;
   obj->attr->attr2 = ATTR2_ID(tile_number) | ATTR2_PRIO(obj_counter) |
                      ATTR2_PALBANK(tile_number);
@@ -115,11 +116,13 @@ bool check_obj_overlap(const Object *obj1, const Object *obj2) {
   int obj1_x = obj1->x;
   int obj1_y = obj1->y;
   int obj1_width = obj_get_width(obj1->attr) - HITBOX_BUFFER;
+  int obj1_width = obj_get_width(obj1->attr) - HITBOX_BUFFER;
   int obj1_height = obj_get_height(obj1->attr);
 
   // features of object 2
   int obj2_x = obj2->x;
   int obj2_y = obj2->y;
+  int obj2_width = obj_get_width(obj2->attr) - HITBOX_BUFFER;
   int obj2_width = obj_get_width(obj2->attr) - HITBOX_BUFFER;
   int obj2_height = obj_get_height(obj2->attr);
 

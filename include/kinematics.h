@@ -22,7 +22,7 @@
 #define PLAYER_X_POS 40       // x position of the player
 #define PLAYER_Y_JUMP_VEL -13 // y velocity of the player while jumping
 #define PLAYER_Y_ACCEL 0.5    // y acceleration of the player while jumping
-#define PLAYER_Y_ACCEL_MOD 10 // modifier for y acceleration (gravity)
+#define PLAYER_Y_ACCEL_MOD 11 // y acceleration modifier for arc motion
 
 #define CACTI_BASE_X_VELOCITY -2.5 // initial x velocity of cacti
 #define DACTYL_BASE_X_VELOCITY -3  // initial x velocity of dactyls
