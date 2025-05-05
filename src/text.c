@@ -1,5 +1,7 @@
 #include "text.h"
+
 #include "tonc.h"
+
 #include <stdio.h>
 
 // Use LibTonc's built-in 8x8 font
@@ -15,10 +17,11 @@ char high_score_buffer[64];
 void end_text(void) {
   erase_screen();
   snprintf(display_buffer, sizeof(display_buffer),
-           "game over :(\nfinal score: %d.\npress up to restart", score);
+           "game over :(\n\n     final score: %d.\n\n    press up to restart",
+           score);
 
   // Draw the text
-  tte_set_pos(50, 50);
+  tte_set_pos(60, 50);
   tte_write(display_buffer);
 }
 
