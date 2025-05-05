@@ -19,9 +19,10 @@ int test_end_text() {
   char test_buffer[64];
   end_text();
   tte_erase_screen();
-  snprintf(test_buffer, sizeof(test_buffer),
-           "game over :(\n\n     final score: %d.\n\n    press up to restart",
-           score);
+  snprintf(
+      test_buffer, sizeof(test_buffer),
+      "game over :(\n\n       final score: %d.\n\n     press up to restart",
+      score);
   if (strcmp(test_buffer, display_buffer) == 0) {
     return 1;
   }
