@@ -246,7 +246,6 @@ int test_toggle_cheat_state_on();
  * y (float)
  * default_sprite (Sprite_ID)
  *
- * TODO: test bitmap stuff?
  * @return 1 if the Object was constructed properly; 0 otherwise.
  */
 int test_object_constructor();
@@ -279,15 +278,6 @@ int test_obstacle_constructor();
  * @return 1 if the Player was constructed properly; 0 otherwise.
  */
 int test_player_constructor();
-
-/**
- * function: despawn
- *
- * Tests that despawn hides the given Obstacle on the bitmap level.
- *
- * @return 1 if the Obstacle's ATTR0_HIDE is set to true; 0 otherwise.
- */
-int test_despawn_hide();
 
 /**
  * function: despawn
@@ -327,5 +317,5 @@ int test_spawn_active();
       test_restart_obstacles(), test_collisions(), test_no_collisions(),       \
       test_cheat_toggle_pokemon(), test_object_constructor(),                  \
       test_obstacle_constructor(), test_player_constructor(),                  \
-      test_despawn_hide(), test_despawn_inactive(), test_spawn_show(),         \
-      test_spawn_active(), test_toggle_cheat_state_on()
+      test_despawn_inactive(), test_spawn_show(), test_spawn_active(),         \
+      test_toggle_cheat_state_on(), test_toggle_cheat_state_off()

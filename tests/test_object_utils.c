@@ -38,6 +38,8 @@ int test_partly_offscreen(void) {
   obj_set_attr(object->attr,
                ATTR0_Y((int)object->y) | ATTR0_SQUARE | ATTR0_4BPP | ATTR0_REG,
                ATTR1_X((int)object->x) | ATTR1_SIZE_32x32,
+               // Added to remove annoyance about changing bit values. Is just
+               // fine.
                // NOLINTNEXTLINE(clang-diagnostic-constant-conversion)
                ATTR2_ID(CACTUS) | ATTR2_PRIO(1) | ATTR2_PALBANK(CACTUS));
   object->x = 240 + 16;
@@ -741,17 +743,6 @@ int test_player_constructor() {
   return test_case;
 }
 
-int test_despawn_hide() {
-  Obstacle *test_obs = &(Obstacle){0};
-  test_obs->obj_args = &(Object){0};
-
-  obstacle_constructor(test_obs, test_object_counter, test_y, test_x_velocity,
-                       test_frame_threshold, test_tile_number);
-  despawn(test_obs);
-
-  return BFN_GET(test_obs->obj_args->attr->attr0, ATTR0_MODE) == ATTR0_HIDE;
-}
-
 int test_despawn_inactive() {
   Obstacle *test_obs = &(Obstacle){0};
   test_obs->obj_args = &(Object){0};
@@ -817,4 +808,35 @@ int test_toggle_cheat_state_on() {
   obj_hide(test_player->obj_args->attr);
 
   return test_case;
+}
+
+int test_toggle_cheat_state_off() {
+  // cheat_sprite_state starts off as on (1) as the cheat_toggle_pokemon will
+  // toggle it on
+  cheat_sprite_state = 1;
+
+  // create test obstacle
+  // note: test_obs will have the default sprite id of DINO
+  Obstacle *test_obs = &(Obstacle){0};
+  test_obs->obj_args = &(Object){0};
+  obstacle_constructor(test_obs, test_object_counter, test_y, test_x_velocity,
+                       test_frame_threshold, test_tile_number);
+  Obstacle *test_obstacles[1] = {test_obs};
+
+  // create test player
+  // note: test_player will have the default sprite id of DINO
+  Player *test_player = &(Player){0};
+  test_player->obj_args = &(Object){0};
+  player_constructor(test_player);
+  cheat_toggle_pokemon(test_player, test_obstacles);
+
+  // cheat_toggle_pokemon should set both test_player and test_obs sprite id to
+  // DINO
+  int test_case = (get_sprite_id(test_player->obj_args) == DINO) &&
+                  (get_sprite_id(test_obs->obj_args) == DINO);
+
+  obj_hide(test_player->obj_args->attr);
+
+  return (get_sprite_id(test_player->obj_args) == DINO) &&
+         (get_sprite_id(test_obs->obj_args) == DINO);
 }

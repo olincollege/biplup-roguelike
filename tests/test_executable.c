@@ -6,12 +6,12 @@
 #include "test_system_utils.h"
 #include "test_text.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 
-#define MAX_SPRITES 128
-
 int main(void) {
-  oam_init(oam_mem, MAX_SPRITES);
+  // clear OAM (Object Attribute Memory) for test use
+  oam_init(oam_mem, 64);
 
   irq_init(NULL);
   irq_add(II_VBLANK, NULL);
@@ -20,13 +20,8 @@ int main(void) {
 
   char test_buffer[128];
 
-  tte_init_se(0,                      // Background number (BG 0)
-              BG_CBB(0) | BG_SBB(31), // BG control (for REG_BGxCNT)
-              0,                      // Tile offset (special cattr)
-              CLR_BLACK,              // Ink color
-              14,                     // BitUnpack offset (on-pixel = 15)
-              NULL,                   // Default font (sys8)
-              NULL);
+  // set modes for text
+  tte_init_se(0, BG_CBB(0) | BG_SBB(31), 0, CLR_BLACK, 14, NULL, NULL);
 
   snprintf(test_buffer, sizeof(test_buffer),
            "system_utils.c:\n\n%d%d%d\n\ntext.c:\n\n%d%d%d%d\n\ninput.c:\n\n%d"
@@ -35,10 +30,10 @@ int main(void) {
            SYSTEM_UTILS_TESTS, TEXT_TESTS, INPUT_TESTS, OBJECT_UTILS_TESTS,
            KINEMATICS_TESTS);
 
-  oam_init(oam_mem, MAX_SPRITES);
+  // clear OAM for display use
+  oam_init(oam_mem, 64);
 
-  while (1) {
-    // tte_erase_screen();
+  while (true) {
     tte_set_pos(5, 7);
     tte_write(test_buffer);
   }

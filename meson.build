@@ -1,6 +1,6 @@
 project(
-  'dino-game', 'c',
-  version: '0.99.0',
+  'biplup-run', 'c',
+  version: '1.0.0',
   license: 'Zlib',
   meson_version: '>=0.60.0',
   default_options: ['buildtype=debugoptimized', 'warning_level=2', 'c_std=c11', 'cpp_std=c++20'])
@@ -14,7 +14,7 @@ if get_option('dev')
 endif
 
 # The name of the project.
-name = 'dino-game'
+name = 'biplup-run'
 
 # All of the source files used by the project.
 sources = [

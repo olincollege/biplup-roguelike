@@ -33,7 +33,7 @@
  *
  * Retrieve the true x position of the object and save it in the object's x
  * field, such that the program can interact with the field rather than with the
- * bitmap.
+ * u16 attribute.
  *
  * @param obj A pointer to an Object struct to align.
  */
@@ -44,7 +44,7 @@ void update_obj_x(Object *obj);
  *
  * Retrieve the true y position of the object and save it in the object's y
  * field, such that the program can interact with the field rather than with the
- * bitmap.
+ * u16 attribute.
  *
  * @param obj A pointer to an Object struct to align.
  */
@@ -55,7 +55,7 @@ void update_obj_y(Object *obj);
  *
  * Given a pointer to an Object struct representing an obstacle, set the
  * obstacle's true x position to SCREEN_WIDTH + OFFSCREEN_OFFSET. Then, align
- * the Object's position fields to its bitmap location.
+ * the Object's position fields to its u16 attribute location.
  *
  * @param obs A pointer to an Object struct that is an obstacle.
  */
