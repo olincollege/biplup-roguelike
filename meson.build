@@ -45,9 +45,24 @@ includes = [
 
 test_sources = [
   'tests/test_executable.c',
-  'src/object_utils.c',
+  'tests/test_system_utils.c',
+  'tests/test_object_utils.c',
+  'src/input.c',
+  'src/text.c',
   'src/kinematics.c',
+  'src/object_utils.c',
   'src/system_utils.c',
+  'src/assets/blob.s',
+  'src/assets/cactus_1_32.s',
+  'src/assets/dino_walk_32.s',
+  'src/assets/dactyl_fly_32.s',
+  'src/assets/cloud_32.s',
+  'src/assets/biplup_walk_32.s',
+  'src/assets/biplup_walk_32_bw.s',
+  'src/assets/sudowoodo_32_bw.s',
+  'src/assets/aero_fly_32_bw.s',
+  'src/assets/swablu_bw.s',
+  'src/assets/bg_with_road.s'
 ]
 
 test_includes = [

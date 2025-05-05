@@ -14,8 +14,6 @@ extern int score;
 extern int cheat_sprite_state;
 extern int last_cheat_frame;
 
-#define EPSILON 0.001
-
 int test_right_offscreen(void) {
   Object *object = &(Object){};
   float offscreen_x = 240 + 32 + 1;
@@ -267,7 +265,7 @@ int test_update_still_obstacles(void) {
   return has_passed;
 }
 
-float test_velocity_milestone_1(void) {
+int test_velocity_milestone_1(void) {
   score = 500;
   float vel_multiplier = (((float)(score / 500)) / 10.0);
 
