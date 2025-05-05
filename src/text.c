@@ -10,7 +10,7 @@ extern const TFont sys8Font;
 // Here are some important globals
 extern int score;
 extern u32 high_score;
-char display_buffer[64];
+char display_buffer[72];
 char score_buffer[64];
 char high_score_buffer[64];
 
