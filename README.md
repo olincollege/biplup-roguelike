@@ -302,7 +302,7 @@ which allows for cross compilation:
 Windows, using Powershell:
 
 ```powershell
-$f = Get-Content meson/gba.ini; $f[1] = "path = '$($Env:DEVKITARM\bin)'"; Set-Content dkarm.ini $f
+$f = Get-Content meson/gba.ini; $f[1] = "path = '$($Env:DEVKITARM)\bin'"; Set-Content dkarm.ini $f
 ```
 
 Windows, using MSYS2:
