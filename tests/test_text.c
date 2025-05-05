@@ -20,7 +20,8 @@ int test_end_text() {
   end_text();
   tte_erase_screen();
   snprintf(test_buffer, sizeof(test_buffer),
-           "game over :(\nfinal score: %d.\npress up to restart", score);
+           "game over :(\n\n     final score: %d.\n\n    press up to restart",
+           score);
   if (strcmp(test_buffer, display_buffer) == 0) {
     return 1;
   }
