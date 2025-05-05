@@ -50,10 +50,10 @@
  * @param obj_counter An int representing the index of this object in the game.
  * @param x An int that is the x position of the object.
  * @param y An int that is the y position of the object.
- * @param tile_number An int indicating the sprite of this object.
+ * @param tile_number A Sprite_ID indicating the sprite of this object.
  */
 void object_constructor(Object *obj, int obj_counter, float x, float y,
-                        int tile_number);
+                        Sprite_ID tile_number);
 
 /**
  * Construct an obstacle.
@@ -76,7 +76,7 @@ void object_constructor(Object *obj, int obj_counter, float x, float y,
 
 void obstacle_constructor(Obstacle *obs, int obj_counter, float y,
                           float x_velocity, int frame_spawn_threshold,
-                          int tile_number);
+                          Sprite_ID tile_number);
 
 /**
  * Construct a player.
