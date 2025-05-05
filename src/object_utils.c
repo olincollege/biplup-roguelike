@@ -5,6 +5,7 @@
 #include "types.h"
 #include <stdbool.h>
 
+extern int score;
 extern RECT offscreen;
 extern int frame_counter;
 extern int animation_frame;
@@ -116,13 +117,11 @@ bool check_obj_overlap(const Object *obj1, const Object *obj2) {
   int obj1_x = obj1->x;
   int obj1_y = obj1->y;
   int obj1_width = obj_get_width(obj1->attr) - HITBOX_BUFFER;
-  int obj1_width = obj_get_width(obj1->attr) - HITBOX_BUFFER;
   int obj1_height = obj_get_height(obj1->attr);
 
   // features of object 2
   int obj2_x = obj2->x;
   int obj2_y = obj2->y;
-  int obj2_width = obj_get_width(obj2->attr) - HITBOX_BUFFER;
   int obj2_width = obj_get_width(obj2->attr) - HITBOX_BUFFER;
   int obj2_height = obj_get_height(obj2->attr);
 
