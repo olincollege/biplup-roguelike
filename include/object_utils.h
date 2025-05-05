@@ -28,13 +28,11 @@
   CACTUS_AMOUNT + DACTYL_AMOUNT +                                              \
       CLOUD_AMOUNT      // total obstacles present in the game
 #define HITBOX_BUFFER 8 // buffer for hitbox
-CLOUD_AMOUNT            // total obstacles present in the game
-#define HITBOX_BUFFER 8 // buffer for hitbox
 
 #define CACTUS_FRAME_SPAWN_THRESHOLD 100 // frame count before cacti respawn
 #define DACTYL_FRAME_SPAWN_THRESHOLD 230 // frame count before dactyls respawn
 #define CLOUD_FRAME_SPAWN_THRESHOLD 80   // frame count before clouds respawn
-#define ANIMATION_FRAME_TIME 7 // how often animation plays
+#define ANIMATION_FRAME_TIME 7           // how often animation plays
 #define CHEAT_STATE_SPRITE_DIFF                                                \
   96 // difference in ID between standard and cheat sprites
 #define ANIMATION_SPRITE_DIFF                                                  \
