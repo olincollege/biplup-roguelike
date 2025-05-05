@@ -53,7 +53,3 @@ int test_reset_game_state(void) {
 }
 
 int test_retrieve_high_score(void) { return retrieve_high_score() == (u32)0; }
-
-// int test_save_high_score(void) { return 0; }
-
-// int test_ignore_low_score(void) { return 0; }
