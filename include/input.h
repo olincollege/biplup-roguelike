@@ -22,15 +22,15 @@
  * running test cases, it will return a preset test input.
  *
  * @param key an unsigned 32-bit integer representing what keys are pressed.
- * @return a key input either preset for tests or collected from user input on
+ * @return A key input either preset for tests or collected from user input on
  * the GBA.
  */
 u32 get_input(u32 key);
 
 /**
- * Wait for key input during the PREGAME state.
+ * Wait for key input during the PRE_GAME state.
  *
- * Wait for correct key input during the PREGAME state. When the up button is
+ * Wait for correct key input during the PRE_GAME state. When the up button is
  * pressed, reset the game to a score of 0, a frame count of 1, and the state
  * GAME.
  */
@@ -48,9 +48,9 @@ void pregame_key_input();
 void game_key_input(Player *player);
 
 /**
- * Wait for key input during the POSTGAME state.
+ * Wait for key input during the POST_GAME state.
  *
- * Wait for correct key input during the POSTGAME state. When the up button is
+ * Wait for correct key input during the POST_GAME state. When the up button is
  * pressed, reset the game to a score of 0, a frame count of 1, and the state
  * GAME. Also, reset all game obstacles to be hidden and offscreen.
  *
