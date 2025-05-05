@@ -5,7 +5,7 @@
 // Use LibTonc's built-in 8x8 font
 extern const TFont sys8Font;
 
-// here are some important globals
+// Here are some important globals
 extern int score;
 extern u32 high_score;
 char display_buffer[64];
@@ -45,10 +45,10 @@ void score_update(void) {
   // Clear previous text (optional but useful in bitmap mode)
   erase_screen();
 
-  // update the score
+  // Update the score
   score++;
 
-  // construct the text
+  // Construct the text
   snprintf(score_buffer, sizeof(score_buffer), "Score: %d\nHigh Score: %lu",
            score, high_score <= (u32)score ? (u32)score : high_score);
 
