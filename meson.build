@@ -1,6 +1,6 @@
 project(
   'dino-game', 'c',
-  version: '0.90.0',
+  version: '0.99.0',
   license: 'Zlib',
   meson_version: '>=0.60.0',
   default_options: ['buildtype=debugoptimized', 'warning_level=2', 'c_std=c11', 'cpp_std=c++20'])
