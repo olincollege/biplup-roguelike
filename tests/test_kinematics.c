@@ -1,5 +1,6 @@
 #include "test_kinematics.h"
 #include "kinematics.h"
+#include "object_utils.h"
 #include "system_utils.h"
 #include "tonc.h"
 #include "types.h"
@@ -77,10 +78,10 @@ int test_update_player_physics() {
   // simulating player jump and checking if player properly falls down from it
   update_jump_state(player);
   // looping checks to see if player gets stuck in midair indefinitely
-  for (int i = 0; i < 30; i++) {
+  for (int i = 0; i < 100; i++) {
     update_player_physics(player);
     // checks to see if player touches ground
-    if (player->obj_args->x == FLOOR_LEVEL) {
+    if (player->obj_args->y == FLOOR_LEVEL) {
       // checks if player's jump state is set back to false
       return !player->jumping;
     }
