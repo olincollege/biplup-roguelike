@@ -1,8 +1,11 @@
 #include "object_utils.h"
+
 #include "kinematics.h"
 #include "system_utils.h"
-#include "tonc.h"
 #include "types.h"
+
+#include "tonc.h"
+
 #include <stdbool.h>
 
 extern int score;

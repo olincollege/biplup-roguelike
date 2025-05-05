@@ -1,10 +1,12 @@
 #include "input.h"
+
 #include "kinematics.h"
 #include "object_utils.h"
 #include "system_utils.h"
 #include "text.h"
-#include "tonc.h"
 #include "types.h"
+
+#include "tonc.h"
 
 extern Game_State game_state;
 extern int score;
