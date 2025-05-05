@@ -234,6 +234,10 @@ int test_update_moving_obstacles(void) {
     }
   }
 
+  for (int i = 0; i < 4; i++) {
+    despawn(obstacles[i]);
+  }
+
   return has_passed;
 }
 
@@ -270,8 +274,14 @@ int test_update_still_obstacles(void) {
     if (!obstacles[i]->is_active ||
         obstacles[i]->obj_args->x != SCREEN_WIDTH + OFFSCREEN_OFFSET) {
       has_passed = 0;
+      break;
     }
   }
+
+  for (int i = 0; i < 4; i++) {
+    despawn(obstacles[i]);
+  }
+
   return has_passed;
 }
 
@@ -323,6 +333,11 @@ int test_velocity_milestone_1(void) {
     }
   }
   score = 0;
+
+  for (int i = 0; i < 4; i++) {
+    despawn(obstacles[i]);
+  }
+
   return has_passed;
 }
 
@@ -373,6 +388,11 @@ int test_velocity_milestone_2(void) {
     }
   }
   score = 0;
+
+  for (int i = 0; i < 4; i++) {
+    despawn(obstacles[i]);
+  }
+
   return has_passed;
 }
 
@@ -424,6 +444,11 @@ int test_velocity_milestone_3(void) {
     }
   }
   score = 0;
+
+  for (int i = 0; i < 4; i++) {
+    despawn(obstacles[i]);
+  }
+
   return has_passed;
 }
 
@@ -474,6 +499,11 @@ int test_velocity_milestone_4(void) {
     }
   }
   score = 0;
+
+  for (int i = 0; i < 4; i++) {
+    despawn(obstacles[i]);
+  }
+
   return has_passed;
 }
 
@@ -520,6 +550,11 @@ int test_restart_obstacles(void) {
       break;
     }
   }
+
+  for (int i = 0; i < 4; i++) {
+    despawn(obstacles[i]);
+  }
+
   return has_passed;
 }
 
@@ -564,6 +599,8 @@ int test_collisions(void) {
 
   bool result = check_player_collision(player, obstacles);
 
+  obj_hide(player->obj_args->attr);
+
   return result == true;
 }
 
@@ -606,6 +643,8 @@ int test_no_collisions(void) {
 
   bool result = check_player_collision(player, obstacles);
 
+  obj_hide(player->obj_args->attr);
+
   return result == false;
 }
 
@@ -641,7 +680,11 @@ int test_cheat_toggle_pokemon(void) {
 
   cheat_toggle_pokemon(player, obstacles);
 
-  return cheat_sprite_state == 1 && last_cheat_frame == frame_counter;
+  int test_case = cheat_sprite_state == 1 && last_cheat_frame == frame_counter;
+
+  obj_hide(player->obj_args->attr);
+
+  return test_case;
 }
 
 // object constructor variables
@@ -685,13 +728,17 @@ int test_player_constructor() {
 
   player_constructor(test_player);
 
-  return test_player->obj_args->object_counter == 0 &&
-         test_player->obj_args->x == PLAYER_X_POS &&
-         test_player->obj_args->y == FLOOR_LEVEL &&
-         test_player->obj_args->default_sprite == DINO &&
-         test_player->y_velocity == 0 &&
-         test_player->y_acceleration == PLAYER_Y_ACCEL &&
-         test_player->jumping == false;
+  int test_case = test_player->obj_args->object_counter == 0 &&
+                  test_player->obj_args->x == PLAYER_X_POS &&
+                  test_player->obj_args->y == FLOOR_LEVEL &&
+                  test_player->obj_args->default_sprite == DINO &&
+                  test_player->y_velocity == 0 &&
+                  test_player->y_acceleration == PLAYER_Y_ACCEL &&
+                  test_player->jumping == false;
+
+  obj_hide(test_player->obj_args->attr);
+
+  return test_case;
 }
 
 int test_despawn_hide() {
@@ -763,6 +810,11 @@ int test_toggle_cheat_state_on() {
 
   // cheat_toggle_pokemon should set both test_player and test_obs sprite id to
   // BIPLUP
-  return (get_sprite_id(test_player->obj_args) == BIPLUP) &&
-         (get_sprite_id(test_obs->obj_args) == BIPLUP);
+
+  int test_case = (get_sprite_id(test_player->obj_args) == BIPLUP) &&
+                  (get_sprite_id(test_obs->obj_args) == BIPLUP);
+
+  obj_hide(test_player->obj_args->attr);
+
+  return test_case;
 }
